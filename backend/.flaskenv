@@ -1,0 +1,2 @@
+FLASK_APP=haski_api.py
+FLASK_ENV=development

@@ -1,0 +1,709 @@
+openapi: "3.0.3"
+info:
+  description: "This is the HASKI API documentation"
+  version: "1.0"
+  title: "HASKI API"
+servers:
+  - url: http://haksi.whatever.com/v1.0
+tags:
+- name: "HASKI-intern"
+  description: "Communication between Backend and Frontend"
+- name: "moodle"
+  description: "Extension to communicate with Moodle LMS"
+paths:
+  /elements:
+    get:
+      tags:
+      - "HASKI-intern"
+      summary: "Get all elements"
+      description: "Get the data for all Elements"
+      operationId: "getAllElements"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Elements'
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+    post:
+      tags:
+      - "HASKI-intern"
+      summary: "Upload element"
+      description: "Upload the information of an element"
+      operationId: "uploadElement"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElementUpload'
+      responses:
+        "201":
+          description: "Element was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Element"
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /elements/{elementId}:
+    get:
+      tags: 
+      - "HASKI-intern"
+      summary: "Get element"
+      description: "Get the data for a specific Element"
+      operationId: "getElementData"
+      parameters:
+      - name: "elementId"
+        in: "path"
+        description: "ID of the element"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Element'
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+    put:
+      tags: 
+      - "HASKI-intern"
+      summary: "Update element"
+      description: "Update the information of an element"
+      operationId: "updateElement"
+      parameters:
+      - name: "elementId"
+        in: "path"
+        description: "ID of the element"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      - name: "body"
+        in: "header"
+        description: "The new information about an element"
+        required: true
+        schema: 
+          $ref: "#/components/schemas/Element"
+      responses:
+        "201":
+          description: "Element was updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Element"
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /learningPath:
+    post:
+      tags:
+      - "HASKI-intern"
+      summary: "Upload learning path"
+      description: "Upload the inital learning path"
+      operationId: "uploadInitalLearningPath"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LearningPath'
+      responses:
+        "201":
+          description: "Learning Path was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningPath"
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /learningPath/{studentId}:
+    get:
+      tags: 
+      - "HASKI-intern"
+      summary: "Get Learning Path"
+      description: "Get the currently saved Learning Path for a specific student"
+      operationId: "getLearningPath"
+      parameters:
+      - name: "studentId"
+        in: "path"
+        description: "ID of the student"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearningPath'
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+    put:
+      tags: 
+      - "HASKI-intern"
+      summary: "Update Learning Path"
+      description: "Update the Learning Path of a student by themself"
+      operationId: "updateLearningPath"
+      parameters:
+      - name: "studentId"
+        in: "path"
+        description: "ID of the student"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      - name: "body"
+        in: "header"
+        description: "The new Learning Path"
+        required: true
+        schema: 
+          $ref: "#/components/schemas/LearningPath"
+      responses:
+        "201":
+          description: "Learning Path was updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningPath"
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /moodle/logs:
+    post:
+      tags:
+      - "moodle"
+      summary: "Upload logs"
+      description: "Upload the logs collected by the Moodle LMS"
+      operationId: "uploadLogs"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Logs'
+      responses:
+        "204":
+          description: "The resource was uploaded successfully."
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /moodle/questionnaire/{studentId}:
+    post:
+      tags:
+      - "moodle"
+      summary: "Upload questionnaire"
+      description: "Upload the results of Felder and Silverman questionnaire"
+      operationId: "uploadQuestionnaire"
+      parameters:
+      - name: "studentId"
+        in: "path"
+        description: "ID of the student"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Questionnaire'
+      responses:
+        "204":
+          description: "The resource was uploaded successfully."
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /moodle/tasks/{studentId}:
+    post:
+      tags:
+      - "moodle"
+      summary: "Upload task"
+      description: "Upload the tasks done by a student in Moodle LMS"
+      operationId: "uploadTask"
+      parameters:
+      - name: "studentId"
+        in: "path"
+        description: "ID of the student"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        "204":
+          description: "The resource was uploaded successfully."
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /student:
+    get:
+      tags: 
+      - "HASKI-intern"
+      summary: "Get all students"
+      description: "Get the data for all Students"
+      operationId: "getAllStudentData"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Students'
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+    post:
+      tags:
+      - "HASKI-intern"
+      summary: "Upload student"
+      description: "Upload the inital information of a student"
+      operationId: "uploadInitalStudent"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentUpload'
+      responses:
+        "201":
+          description: "Student was created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+  /student/{studentId}:
+    get:
+      tags: 
+      - "HASKI-intern"
+      summary: "Get student"
+      description: "Get the data for a specific Student"
+      operationId: "getStudentData"
+      parameters:
+      - name: "studentId"
+        in: "path"
+        description: "ID of the student"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+    put:
+      tags: 
+      - "HASKI-intern"
+      summary: "Update student"
+      description: "Update the student information and/or learning style"
+      operationId: "updateStudent"
+      parameters:
+      - name: "studentId"
+        in: "path"
+        description: "ID of the student"
+        required: true
+        schema:
+          type: "integer"
+          format: "int64"
+      - name: "body"
+        in: "header"
+        description: "The new Learning Style and Student Information"
+        required: true
+        schema: 
+          $ref: "#/components/schemas/Student"
+      responses:
+        "201":
+          description: "Student was updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "400":
+          description: "Invalid ID supplied"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+        "404":
+          description: "Student not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneralError"
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Element:
+      type: "object"
+      required:
+      - "id"
+      - "name"
+      - "difficulty"
+      - "progress"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          example: 1234
+        name: 
+          type: "string"
+          example: "My test element"
+        position:
+          type: "integer"
+          format: "int64"
+          example: 2
+        difficulty:
+          type: "string"
+          example: "Easy"
+        progress:
+          type: "integer"
+          format: "int64"
+          example: 2
+        date:
+          type: "string"
+          format: "date-time"
+        topic:
+          type: "string"
+          example: "Informatik I"
+        semester:
+          type: "integer"
+          format: "int64"
+          example: 2
+        style: 
+          type: "string"
+          example: "visual"
+        proLIST:
+          type: "string"
+          example: "Lorem Ipsum"
+        contraLIST:
+          type: "string"
+          example: "Lorem Ipsum"
+        duration:
+          type: "number"
+          format: "double"
+          example: "1.5"
+    Elements:
+      type: "object"
+      properties:
+        elements:
+          type: "array"
+          items: 
+            $ref: '#/components/schemas/Element'
+    ElementUpload:
+      type: "object"
+      required:
+      - "name"
+      - "date"
+      - "topic"
+      - "semester"
+      - "style"
+      properties:
+        name:
+          type: "string"
+          example: "My test Element"
+        date: 
+          type: "string"
+          format: "date-time"
+        topic:
+          type: "string"
+          example: "Informatik I"
+        semester:
+          type: "integer"
+          format: "int64"
+          example: 1
+        style: 
+          type: "string"
+          example: "visual"
+    GeneralError: 
+      type: "object"
+      required: 
+      - "code"
+      - "message"
+      properties: 
+        code: 
+          type: "integer"
+          format: "int32"
+        message: 
+          type: "string"
+    LearningPath:
+      type: "object"
+      required: 
+      - "elements"
+      properties:
+        elements:
+          type: "array"
+          items: 
+            $ref: '#/components/schemas/Element'
+    Logs:
+      type: "object"
+      properties:
+        date:
+          type: "string"
+          format: "date-time"
+    Modul:
+      type: "object"
+      required: 
+      - "id"
+      - "name"
+      - "modul"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          example: 1
+        name:
+          type: "string"
+          example: "Einführung in die Programmierung"
+        modul:
+          type: "string"
+          example: "IT-1234"
+        semester:
+          type: "integer"
+          format: "int64"
+          example: 1
+        level:
+          type: "string"
+          example: "beginner"
+    QandA:
+      type: "object"
+      required: 
+      - "id"
+      - "question"
+      - "answer"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          example: 1
+        question: 
+          type: "string"
+          example: "Ich verstehe etwas besser nachdem ich..."
+        answer:
+          type: "integer"
+          format: "int64"
+          example: 0
+    Questionnaire:
+      type: "object"
+      required:
+      - "answers"
+      properties:
+        questionnaire:
+          type: "array"
+          items: 
+            $ref: '#/components/schemas/QandA'
+    Student: 
+      type: "object"
+      required: 
+      - "id"
+      - "name"
+      - "semester"
+      - "style"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          example: 1
+        name:
+          type: "string"
+          example: "Max Musterfrau"
+        semester:
+          type: "integer"
+          format: "int64"
+          example: 2
+        style:
+          type: "string"
+          example: "Active, Verbal, Intuitive, Global"
+        courseOfStudy: 
+          type: "string"
+          example: "Angewandte Informatik"
+        modules:
+          type: "array"
+          items: 
+            $ref: "#/components/schemas/Modul"
+    Students:
+      type: "object"
+      properties:
+        student:
+          type: "array"
+          items: 
+            $ref: '#/components/schemas/Student'
+    StudentUpload: 
+      type: "object"
+      required: 
+      - "name"
+      - "semester"
+      properties:
+        name:
+          type: "string"
+          example: "Max Musterfrau"
+        semester:
+          type: "integer"
+          format: "int64"
+          example: 2
+        courseOfStudy: 
+          type: "string"
+          example: "Angewandte Informatik"
+    Task:
+      type: "object"
+      required:
+        - "id"
+        - "name"
+        - "doneBy"
+        - "doneAt"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          example: 1
+        name:
+          type: "string"
+          example: "Übung zu Lines of Code"
+        doneBy:
+          type: "string"
+          example: "Max Musterfrau"
+        doneAt:
+          type: "string"
+          format: "date-time"

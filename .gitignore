@@ -24,4 +24,6 @@
 
 /backend/__pycache__
 /backend/venv
+/backend/tests/__pycache__
+/backend/tests/.pytest_cache
 frontend/yarn.lock

@@ -8,12 +8,15 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-flow-renderer": "^10.3.6",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "swiper": "^8.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:debug": "node --inspect-brk=5858 ./index.js",
     "start-api": "cd ../backend && venv/bin/flask run --no-debugger",
     "start-api-windows": "cd ../backend && venv\\Scripts\\flask run --no-debugger",
     "build": "react-scripts build",

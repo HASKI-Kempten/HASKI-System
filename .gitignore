@@ -27,3 +27,6 @@
 /backend/tests/__pycache__
 /backend/tests/.pytest_cache
 frontend/yarn.lock
+/node_modules
+yarn.lock
+.vscode/launch.json

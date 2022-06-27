@@ -1,6 +1,9 @@
 import logo from '../haski.jpeg';
 import '../App.css';
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import Swiper styles
+import 'swiper/css';
 
 const Home = () => {
   return (
@@ -11,20 +14,20 @@ const Home = () => {
           Welccome to the HASKI project!
         </p>
         <br />
-        <ul> 
-            <li>
+        <ul>
+          <li>
             <Link to="/">Home</Link>
-            </li>
-            <li>
+          </li>
+          <li>
             <Link to="/quiz">Finde deinen Lerntypen heraus</Link>
-            </li>
-            <li>
+          </li>
+          <li>
             <Link to="/learningPath">Lernpfad ansehen</Link>
-            </li>
+          </li>
         </ul>
       </header>
     </div>
   );
 };
-  
+
 export default Home;

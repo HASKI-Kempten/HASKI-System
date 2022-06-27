@@ -4,7 +4,11 @@ import random
 
 app = Flask(__name__)
 
-elements = {"elements": [{ "id": 1, "name": "My test element", "position": 2, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 }]}
+elements = {"elements": [
+    { "id": 1, "name": "My first", "position": 2, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },
+    { "id": 2, "name": "My second element", "position": 3, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },
+    { "id": 3, "name": "My last element", "position": 4, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 }
+    ]}
 
 learning_path = {"elements": []}
 

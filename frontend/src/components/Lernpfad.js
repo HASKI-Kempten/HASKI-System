@@ -34,7 +34,12 @@ function Flow() {
 					type: type,
 					sourcePosition: 'right',
 					targetPosition: 'left',
-					data: { label: element.name },
+					data: {
+						label: element.name,
+						duration: element.duration,
+						topic: element.topic,
+						difficulty: element.difficulty,
+					},
 					position: { x: element.id * 250, y: 100 },
 				}
 			}));

@@ -1,4 +1,6 @@
 import { Controls, ControlButton } from 'react-flow-renderer';
+import React from 'react';
+import { ReactComponent as OpenInNewIcon } from '../media/icons/open_in_new_FILL0_wght400_GRAD200_opsz48.svg';
 
 function CustomControls() {
     return (
@@ -11,10 +13,9 @@ function CustomControls() {
             }}
         >
             <ControlButton onClick={() => console.log('action')}>
-                {/* <FancyIcon /> */}
+                <OpenInNewIcon />
             </ControlButton>
             <ControlButton onClick={() => console.log('another action')}>
-                {/* <AnotherFancyIcon /> */}
             </ControlButton>
         </ Controls >
     );

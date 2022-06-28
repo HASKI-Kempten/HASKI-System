@@ -11,14 +11,14 @@ def test_get_all_modules():
         assert 'modules' in res
         assert len(res['modules']) > 0
         res_mod = res['modules']
-        assert 'id' in res_mod
-        assert type(res_mod['id']) == int
-        assert 'name' in res_mod
-        assert type(res_mod['name']) == str
-        assert 'module' in res_mod
-        assert type(res_mod['module']) == str
-        assert 'semester' in res_mod
-        assert type(res_mod['semester']) == int
+        assert 'id' in res_mod[0]
+        assert type(res_mod[0]['id']) == int
+        assert 'name' in res_mod[0]
+        assert type(res_mod[0]['name']) == str
+        assert 'module' in res_mod[0]
+        assert type(res_mod[0]['module']) == str
+        assert 'semester' in res_mod[0]
+        assert type(res_mod[0]['semester']) == int
 
 def test_create_module():
     with app.test_client() as c:
@@ -32,11 +32,11 @@ def test_create_module():
         assert 'name' in res
         assert type(res['name']) == str
         assert 'module' in res
-        assert type(res['module']) == int
+        assert type(res['module']) == str
         assert 'semester' in res
         assert type(res['semester']) == int
 
-def test_update_learning_path():
+def test_update_module():
     with app.test_client() as c:
         rv = c.put('/modules/1', json={'name': 'Einführung in die Programmierung II', 'module': 'IT-9876', 'semester': 2})
         assert rv.status_code == 200
@@ -49,13 +49,13 @@ def test_update_learning_path():
         assert type(res['name']) == str
         assert res['name'] == "Einführung in die Programmierung II"
         assert 'module' in res
-        assert type(res['module']) == int
+        assert type(res['module']) == str
         assert res['module'] == 'IT-9876'
         assert 'semester' in res
         assert type(res['semester']) == int
         assert res['semester'] == 2
         
-def test_get_element_by_id():
+def test_get_module_by_id():
     with app.test_client() as c:
         rv = c.get('/modules/1')
         assert rv.status_code == 200
@@ -67,6 +67,6 @@ def test_get_element_by_id():
         assert 'name' in res
         assert type(res['name']) == str
         assert 'module' in res
-        assert type(res['module']) == int
+        assert type(res['module']) == str
         assert 'semester' in res
         assert type(res['semester']) == int

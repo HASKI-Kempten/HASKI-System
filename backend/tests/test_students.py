@@ -52,7 +52,7 @@ def test_create_student():
 
 def test_update_student():
     with app.test_client() as c:
-        rv = c.put('/student/1', json={"name": "Maria Mustermann", "semester": 3, "courseOfStudy": "Game Engineering", "style": "Active, Verbal, Intuitive, Global", "modules": [{"id": 1, "modul": "IT-1234", "name": "Visualisierungstechniken", "semester": 3}]})
+        rv = c.put('/student/1', json={"name": "Maria Mustermann", "semester": 3, "courseOfStudy": "Game Engineering", "style": "Active, Verbal, Intuitive, Global", "modules": [{"id": 1, "module": "IT-1234", "name": "Visualisierungstechniken", "semester": 3}]})
         assert rv.status_code == 200
         res = rv.get_json()
         assert type(res) is dict
@@ -67,7 +67,7 @@ def test_update_student():
         assert res['semester'] == 3
         assert 'style' in res
         assert type(res['style']) == str
-        assert res['style'] = "Active, Verbal, Intuitive, Global"
+        assert res['style'] == "Active, Verbal, Intuitive, Global"
         assert 'courseOfStudy' in res
         assert type(res['courseOfStudy']) == str
         assert 'modules' in res

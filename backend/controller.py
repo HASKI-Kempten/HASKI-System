@@ -5,16 +5,22 @@ import random
 app = Flask(__name__)
 
 elements = {"elements": [
-    { "id": 1, "name": "My first", "position": 2, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },
-    { "id": 2, "name": "My second element", "position": 3, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },
-    { "id": 3, "name": "My last element", "position": 4, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 }
+        { "id": 1, "name": "My first", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 90 },
+        { "id": 2, "name": "My second element", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 75 },
+        { "id": 3, "name": "My last element", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 120 }
     ]}
 
-learning_path = {"elements": []}
+learning_path = {"1-987": [{"id": 1, "moduleId": 987, "module": "Informatik I", "elements": [
+        {"elementId": 12, "position": "1.1"},
+        {"elementId": 2, "position": "1.2"},
+        {"elementId": 3, "position": "2.1"}
+    ]}] }
 
-modul =  '{ "id": 1, "name": "Einführung in die Programmierung", "modul": "IT-1234", "semester": 1,"level": "beginner"}'
+learning_way ={}
 
-students = {"students": [{"id": 1, "name": "Max Musterfrau", "semester": 2, "style": "Active, Verbal, Intuitive, Global", "courseOfStudy": "Angewandte Informatik", "modules": [{"id": 1, "name": "Einführung in die Programmierung", "modul": "IT-1234", "semester": 1, "level": "beginner"}]}]}
+module =  {"modules": [{"id": 1, "name": "Einführung in die Informatik", "module": "IT-1234", "semester": 1},{"id": 2, "name": "Einführung in die Informatik II", "module": "IT-9876", "semester": 2}]}
+
+students = {"students": [{"id": 1, "name": "Max Musterfrau", "semester": 2, "style": "Active, Verbal, Intuitive, Global", "courseOfStudy": "Angewandte Informatik", "modules": [{"id": 1, "name": "Einführung in die Programmierung", "module": "IT-1234", "semester": 1}]}]}
 
 @app.route('/elements')
 def get_elements():
@@ -26,16 +32,14 @@ def upload_element():
     new_element = {
         'id': len(elements['elements'])+1,
         'name': uploaded_element['name'].strip(),
-        'position': None,
         'difficulty': 'Easy',
-        'progress': 0,
-        'date': uploaded_element['date'].strip(),
-        'topic': uploaded_element['topic'].strip(),
+        'creationDate': uploaded_element['date'],
+        'module': uploaded_element['topic'].strip(),
         'semester': uploaded_element['semester'],
         'style': uploaded_element['style'].strip(),
         'proLIST': '',
-        'contraList': '',
-        'duration': 0
+        'contraLIST': '',
+        'averageDuration': 0
     }
     elements['elements'].append(new_element)
     return jsonify(elements['elements'][new_element['id']-1]), 201
@@ -114,16 +118,14 @@ def get_students():
 @app.route('/student', methods=['POST'])
 def create_student():
     created_student = request.get_json()
-    name, semester, courseOfStudy = created_student['name'].strip(),created_student['semester'].strip(),created_student['courseOfStudy'].strip()
+    name, semester, courseOfStudy = created_student['name'].strip(),created_student['semester'],created_student['courseOfStudy'].strip()
     new_student = {
         'id': len(students['students'])+1,
         'name': name,
         'semester': semester,
         'style': '',
         'courseOfStudy': courseOfStudy,
-        'modules': [
-            {}
-        ]
+        'modules': []
     }
     students['students'].append(new_student)
     return jsonify(students['students'][new_student['id']-1]), 201
@@ -160,56 +162,120 @@ def update_student(studentId):
                 student.update({'modules': updated_student['modules']})
     return jsonify(students['students'][studentId-1])
 
-@app.route('/learningPath/<int:studentId>')
-def get_learning_path_for_student(studentId):
-    return jsonify(learning_path)
+@app.route('/learningPath/<int:pathId>/<int:moduleId>')
+def get_learning_path_for_student(pathId,moduleId):
+    id = str(pathId) + "-" + str(moduleId)
+    return jsonify(learning_path[id][0]),200
 
 @app.route('/learningPath', methods=['POST'])
 def create_learning_Path():
     created_learning_path = request.get_json()
-    for i in range(len(created_learning_path['elements'])):
-        new_learning_path = {
-            'id': len(learning_path['elements'])+1,
-            'name': created_learning_path['elements'][i]['name'].strip(),
-            'position': created_learning_path['elements'][i]['position'],
-            'difficulty': created_learning_path['elements'][i]['difficulty'].strip(),
-            'progress': created_learning_path['elements'][i]['progress'],
-            'date': created_learning_path['elements'][i]['date'].strip(),
-            'topic': created_learning_path['elements'][i]['topic'].strip(),
-            'semester': created_learning_path['elements'][i]['semester'],
-            'style': created_learning_path['elements'][i]['style'].strip(),
-            'proLIST': created_learning_path['elements'][i]['proLIST'].strip(),
-            'contraList': created_learning_path['elements'][i]['contraLIST'].strip(),
-            'duration': created_learning_path['elements'][i]['duration']
-        }
-        learning_path['elements'].append(new_learning_path)
-    return jsonify(learning_path), 201
+    id = str(len(learning_path)+1) + "-" + str(created_learning_path['moduleId'])
+    new_elements = []
+    for element in created_learning_path['elements']:
+        new_elements.append({
+            'elementId': element['elementId'],
+            'position': element['position'].strip()
+        })
+    new_learning_path = [{
+        'id': id,
+        'moduleId': created_learning_path['moduleId'],
+        'module': created_learning_path['module'],
+        'elements': new_elements        
+    }]
+    learning_path[id] = new_learning_path
+    return jsonify(learning_path[id][0]), 201
 
-@app.route('/learningPath/<int:studentId>', methods=['PUT'])
-def update_learning_path(studentId):
-    print(learning_path)
-    print(len(learning_path['elements']))
-    for i in range(len(learning_path['elements'])):
-        del learning_path['elements'][0]
-    print(learning_path)
+@app.route('/learningPath/<int:pathId>/<int:moduleId>', methods=['PUT'])
+def update_learning_path(pathId,moduleId):
     created_learning_path = request.get_json()
-    for i in range(len(created_learning_path['elements'])):
-        new_learning_path = {
-            'id': created_learning_path['elements'][i]['id'],
-            'name': created_learning_path['elements'][i]['name'].strip(),
-            'position': created_learning_path['elements'][i]['position'],
-            'difficulty': created_learning_path['elements'][i]['difficulty'].strip(),
-            'progress': created_learning_path['elements'][i]['progress'],
-            'date': created_learning_path['elements'][i]['date'].strip(),
-            'topic': created_learning_path['elements'][i]['topic'].strip(),
-            'semester': created_learning_path['elements'][i]['semester'],
-            'style': created_learning_path['elements'][i]['style'].strip(),
-            'proLIST': created_learning_path['elements'][i]['proLIST'].strip(),
-            'contraList': created_learning_path['elements'][i]['contraLIST'].strip(),
-            'duration': created_learning_path['elements'][i]['duration']
-        }
-        learning_path['elements'].append(new_learning_path)
-    return jsonify(learning_path)
+    id = str(pathId) + "-" + str(moduleId)
+    new_elements = []
+    for element in created_learning_path['elements']:
+        new_elements.append({
+            'elementId': element['elementId'],
+            'position': element['position'].strip()
+        })
+    new_learning_path = [{
+        'id': pathId,
+        'moduleId': created_learning_path['moduleId'],
+        'module': created_learning_path['module'],
+        'elements': new_elements        
+    }]
+    learning_path[id] = new_learning_path
+    return jsonify(learning_path[id][0]), 200
+
+@app.route('/learningWay/<int:studentId>/<int:moduleId>', methods=['POST'])
+def create_learning_way(studentId, moduleId):
+    created_learning_way = request.get_json()
+    id = str(studentId) + "-" + str(len(learning_way)+1)
+    way_id = len(learning_way)+1
+    new_learning_way = {}
+    new_learning_way['id'] = way_id
+    new_learning_way['moduleId'] = moduleId
+    new_learning_way['studentId'] = studentId
+    new_learning_way['recommendedElement'] = None
+    for key in learning_path:
+        if str("-"+str(moduleId)) in key:
+            new_learning_way['elements'] = learning_path[key][0]['elements']
+            for element in new_learning_way['elements']:
+                element['done'] = False
+                element['doneAt'] = None
+                element['evaluation'] = None
+            new_learning_way['module'] = learning_path[key][0]['module'] 
+    if "module" not in new_learning_way:
+        new_learning_way['elements'] = None
+        new_learning_way['module'] = None
+    learning_way[id] = new_learning_way
+    print(id)
+    return jsonify(new_learning_way), 201
+
+@app.route('/learningWay/<int:studentId>/<int:moduleId>/<int:learningWayId>', methods=['PUT'])
+def update_learning_way(studentId,moduleId,learningWayId):
+    updated_learning_way = request.get_json()
+    id = str(studentId) + "-" + str(learningWayId)
+    new_learning_way = learning_way[id]
+    new_learning_way['module'] = updated_learning_way['module']
+    new_learning_way['moduleId'] = updated_learning_way['moduleId']
+    new_learning_way['elements'] = updated_learning_way['elements']
+    new_learning_way['recommendedElement'] = updated_learning_way['recommendedElement']
+    return jsonify(new_learning_way),200
+
+@app.route('/learningWay/<int:studentId>/<int:moduleId>/<int:learningWayId>')
+def get_learning_way_for_student(studentId,moduleId,learningWayId):
+    id = str(studentId) + "-" + str(learningWayId)
+    return jsonify(learning_way[id])
+
+@app.route('/modules')
+def get_all_modules():
+    return jsonify(module), 200
+
+@app.route('/modules', methods=['POST'])
+def create_module():
+    params = request.get_json()
+    new_module = {}
+    new_module['id'] = len(module['modules'])+1
+    new_module['name'] = params['name']
+    new_module['module'] = params['module']
+    new_module['semester'] = params['semester']
+    module['modules'].append(new_module)
+    return jsonify(new_module), 201
+
+@app.route('/modules/<int:moduleId>')
+def get_module_by_id(moduleId):
+    for element in module['modules']:
+        if element['id'] == moduleId:
+            return jsonify(element), 200
+
+@app.route('/modules/<int:moduleId>', methods=['PUT'])
+def update_module(moduleId):
+    params = request.get_json()
+    for element in module['modules']:
+        if element['id'] == moduleId:
+            element['name'] = params['name']
+            element['module'] = params['module']
+            element['semester'] = params['semester']
+            return jsonify(element), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

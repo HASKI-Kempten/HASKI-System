@@ -5,7 +5,7 @@ import pytest
 
 def test_create_learning_way():
     with app.test_client() as c:
-        rv = c.post('/learningWay/1', json={"module": "Informatik I", "moduleId": 234, "studentId": 1, "elements": [{ "elementId": 1, "done": True, "doneAt": 1656331243, "evaluation": "2.0", "position": "1.1"},{ "elementId": 2, "done": False, "doneAt": None, "evaluation": None, "position": "1.2"}]})
+        rv = c.post('/learningWay/1/987', json={"module": "Informatik I", "moduleId": 234, "studentId": 1, "elements": [{ "elementId": 1, "done": True, "doneAt": 1656331243, "evaluation": "2.0", "position": "1.1"},{ "elementId": 2, "done": False, "doneAt": None, "evaluation": None, "position": "1.2"}]})
         assert rv.status_code == 201
         res = rv.get_json()
         assert type(res) is dict
@@ -20,7 +20,7 @@ def test_create_learning_way():
         assert type(res['studentId']) == int
         assert res['studentId'] == 1
         assert 'recommendedElement' in res
-        assert type(res['recommendedElement']) == int
+        assert res['recommendedElement'] == None
         assert 'elements' in res
         assert type(res['elements'][0]) is dict
         assert len(res['elements']) > 0
@@ -29,15 +29,15 @@ def test_create_learning_way():
         assert 'done' in res['elements'][0]
         assert type(res['elements'][0]['done']) == bool
         assert 'doneAt' in res['elements'][0]
-        assert type(res['elements'][0]['doneAt']) == int
+        assert res['elements'][0]['doneAt'] == None
         assert 'evaluation' in res['elements'][0]
-        assert type(res['elements'][0]['evaluation']) == str
+        assert res['elements'][0]['evaluation'] == None
         assert 'position' in res['elements'][0] 
         assert type(res['elements'][0]['position']) == str
 
 def test_update_learning_way():
     with app.test_client() as c:
-        rv = c.put('/learningWay/1/1', json={"module": "Informatik I", "moduleId": 234, "studentId": 1, "elements": [{ "elementId": 1, "done": True, "doneAt": 1656331243, "evaluation": "2.0", "position": "1.1"},{ "elementId": 2, "done": True, "doneAt": 1656332482, "evaluation": "1.7", "position": "1.2"}]})
+        rv = c.put('/learningWay/1/987/1', json={"module": "Informatik I", "moduleId": 234, "studentId": 1, "recommendedElement": 123, "elements": [{ "elementId": 1, "done": True, "doneAt": 1656331243, "evaluation": "2.0", "position": "1.1"},{ "elementId": 2, "done": True, "doneAt": 1656332482, "evaluation": "1.7", "position": "1.2"}]})
         assert rv.status_code == 200
         res = rv.get_json()
         assert type(res) is dict
@@ -73,7 +73,7 @@ def test_update_learning_way():
 
 def test_get_learning_way_by_id():
     with app.test_client() as c:
-        rv = c.get('/learningWay/1/1')
+        rv = c.get('/learningWay/1/987/1')
         assert rv.status_code == 200
         res = rv.get_json()
         assert type(res) is dict

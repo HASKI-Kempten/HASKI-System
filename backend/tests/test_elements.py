@@ -32,11 +32,10 @@ def test_get_all_elements():
 
 def test_create_element():
     with app.test_client() as c:
-        rv = c.post('/elements', json={"name": "My test Element 2","date": "2022-06-17T12:16:41.226Z","topic": "Informatik I","semester": 1,"style": "visual"})
+        rv = c.post('/elements', json={"name": "My test Element 2","date": 1656330943,"topic": "Informatik I","semester": 1,"style": "visual"})
         res = rv.get_json()
         assert type(res) is dict
         assert rv.status_code == 201
-        assert type(res) is dict
         assert 'id' in res
         assert type(res['id']) is int
         assert res['id'] != 0

@@ -10,8 +10,8 @@ def test_create_learning_path():
         res = rv.get_json()
         assert type(res) is dict
         assert 'id' in res
-        assert type(res['id']) == int
-        assert res['id'] != 0
+        assert type(res['id']) == str
+        assert res['id'] != "0-0"
         assert 'moduleId' in res
         assert type(res['moduleId']) == int
         assert 'module' in res
@@ -26,7 +26,10 @@ def test_create_learning_path():
 
 def test_update_learning_path():
     with app.test_client() as c:
-        rv = c.put('/learningPath/1', json={"moduleID": 1, "module": "Informatik I", "elements": [{"elementId": 1234, "position": "1.1"},{"elementId": 2, "position": "1.2"}]})
+        rv = c.put('/learningPath/1/1', json={"moduleId": 1, "module": "Informatik I", "elements": [
+            {"elementId": 1234, "position": "1.1"},
+            {"elementId": 2, "position": "1.2"}
+        ]})
         assert rv.status_code == 200
         res = rv.get_json()
         assert type(res) is dict
@@ -47,10 +50,9 @@ def test_update_learning_path():
         assert type(res['elements'][0]['position']) == str
         res['elements'][0]['position'] == '1.1'
         
-
-def test_get_element_by_id():
+def test_get_learning_path_by_id():
     with app.test_client() as c:
-        rv = c.get('/learningPath/1')
+        rv = c.get('/learningPath/1/1')
         assert rv.status_code == 200
         res = rv.get_json()
         assert type(res) is dict

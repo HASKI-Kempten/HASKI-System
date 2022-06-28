@@ -30,15 +30,22 @@ function Flow() {
 			setNodes(data.elements.map((element, i, arr) => {
 				const type = i === 0 ? 'input' : i === arr.length - 1 ? 'output' : 'special';
 				return {
-					id: (element.id).toString(),
+					id: element.id,
 					type: type,
 					sourcePosition: 'right',
 					targetPosition: 'left',
 					data: {
 						label: element.name,
-						duration: element.duration,
-						topic: element.topic,
 						difficulty: element.difficulty,
+						creationDate: element.creationDate,
+						modul: element.modul,
+						averageDuration: element.averageDuration,
+						semester: element.semester,
+						style: element.style,
+						type: element.type,
+						proLIST: element.proLIST,
+						contraLIST: element.contraLIST,
+
 					},
 					position: { x: element.id * 250, y: 100 },
 				}
@@ -48,8 +55,8 @@ function Flow() {
 				return {
 					id: `e${element.id}-${element.id + 1}`,
 					type: 'default',
-					source: (element.id).toString(),
-					target: (element.id + 1).toString(),
+					source: element.id,
+					target: (parseInt(element.id) + 1).toString(),
 					animated: true,
 					markerEnd: { type: 'arrow' },
 				}

@@ -1,7 +1,6 @@
 import logo from '../haski.jpeg';
 import '../App.css';
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper styles
 import 'swiper/css';
 

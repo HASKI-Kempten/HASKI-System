@@ -5,33 +5,66 @@ import pytest
 
 def test_create_learning_path():
     with app.test_client() as c:
-        rv = c.post('/learningPath', json={"elements": [{ "id": 1, "name": "My test Element", "position": 1, "difficulty": "Easy", "progress": 0, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },{ "id": 2, "name": "My test element 2", "position": 2, "difficulty": "Medium", "progress": 0, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "verbal", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 3 }]})
-        res = rv.get_json()['elements']
-        assert type(res[0]) is dict
-        assert len(res) > 0
-        assert res[0]['name'] == 'My test Element'
-        assert res[0]['id'] != 0
-        assert res[0]['difficulty'] == 'Easy'
+        rv = c.post('/learningPath', json={ "moduleId": 987, "module": "Informatik I", "elements": [{ "elementId": 1, "position": "1.1"},{"elementId": 2, "position": "1.2"}]})
         assert rv.status_code == 201
+        res = rv.get_json()
+        assert type(res) is dict
+        assert 'id' in res
+        assert type(res['id']) == int
+        assert res['id'] != 0
+        assert 'moduleId' in res
+        assert type(res['moduleId']) == int
+        assert 'module' in res
+        assert type(res['module']) == str
+        assert 'elements' in res
+        assert type(res['elements'][0]) is dict
+        assert len(res['elements']) > 0
+        assert 'elementId' in res['elements'][0]
+        assert type(res['elements'][0]['elementId']) == int
+        assert 'position' in res['elements'][0] 
+        assert type(res['elements'][0]['position']) == str
 
 def test_update_learning_path():
     with app.test_client() as c:
-        rv = c.put('/learningPath/1', json={"elements": [{"id": 1234,"name": "My test element","position": 2,"difficulty": "Easy","progress": 2,"date": "2022-06-17T12:34:21.063Z","topic": "Informatik I","semester": 2,"style": "visual","proLIST": "Lorem Ipsum","contraLIST": "Lorem Ipsum","duration": 1.5},{"contraLIST": "Something bad","date": "2022-06-13T16:05:54.908Z","difficulty": "Medium","duration": 3,"id": 3,"name": "My test element 3","position": 2,"proLIST": "Someting good","progress": 0,"semester": 2,"style": "text","topic": "Informatik I"}]})
-        res = rv.get_json()['elements']
-        assert type(res[0]) is dict
-        assert len(res) > 1
-        assert res[1]['name'] == 'My test element 3'
-        assert res[1]['id'] == 3
-        assert res[1]['difficulty'] == 'Medium'
+        rv = c.put('/learningPath/1', json={"moduleID": 1, "module": "Informatik I", "elements": [{"elementId": 1234, "position": "1.1"},{"elementId": 2, "position": "1.2"}]})
         assert rv.status_code == 200
+        res = rv.get_json()
+        assert type(res) is dict
+        assert 'id' in res
+        assert type(res['id']) == int
+        assert res['id'] == 1
+        assert 'moduleId' in res
+        assert type(res['moduleId']) == int
+        assert 'module' in res
+        assert type(res['module']) == str
+        assert 'elements' in res
+        assert type(res['elements'][0]) is dict
+        assert len(res['elements']) > 0
+        assert 'elementId' in res['elements'][0]
+        assert type(res['elements'][0]['elementId']) == int
+        assert res['elements'][0]['elementId'] == 1234
+        assert 'position' in res['elements'][0] 
+        assert type(res['elements'][0]['position']) == str
+        res['elements'][0]['position'] == '1.1'
+        
 
 def test_get_element_by_id():
     with app.test_client() as c:
-        rv = c.get('/learningPath/2')
-        res = rv.get_json()['elements']
-        assert type(res[0]) is dict
-        assert len(res) > 1
-        assert res[1]['name'] == 'My test element 3'
-        assert res[1]['id'] == 3
-        assert res[1]['difficulty'] == 'Medium'
+        rv = c.get('/learningPath/1')
         assert rv.status_code == 200
+        res = rv.get_json()
+        assert type(res) is dict
+        assert 'id' in res
+        assert type(res['id']) == int
+        assert res['id'] == 1
+        assert 'moduleId' in res
+        assert type(res['moduleId']) == int
+        assert 'module' in res
+        assert type(res['module']) == str
+        assert 'elements' in res
+        assert type(res['elements'][0]) is dict
+        assert len(res['elements']) > 0
+        assert 'elementId' in res['elements'][0]
+        assert type(res['elements'][0]['elementId']) == int
+        assert 'position' in res['elements'][0] 
+        assert type(res['elements'][0]['position']) == str

@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom'
-import ReactFlow, { applyEdgeChanges, applyNodeChanges, Background } from 'react-flow-renderer';
+import ReactFlow, { addEdge, applyEdgeChanges, applyNodeChanges, Background } from 'react-flow-renderer';
 import CustomControls from './CustomControls';
 import CustomNode from './CustomNode';
-//import initialEdges from '../data/edges.js';
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import { default as MLink } from '@mui/material/Link';
+import HomeIcon from '@mui/icons-material/Home';
+const axios = require('axios').default;
 
 function Flow() {
 
@@ -21,6 +24,11 @@ function Flow() {
 	);
 	const onEdgesChange = useCallback(
 		(changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+		[setEdges]
+	);
+
+	const onConnect = useCallback(
+		(connection) => setEdges((eds) => addEdge({ ...connection, animated: true }, eds)),
 		[setEdges]
 	);
 
@@ -74,7 +82,7 @@ function Flow() {
 			edges={edges}
 			onNodesChange={onNodesChange}
 			onEdgesChange={onEdgesChange}
-
+			onConnect={onConnect}
 			nodeTypes={nodeTypes}
 
 			fitView>
@@ -85,45 +93,44 @@ function Flow() {
 		</ReactFlow>
 	);
 }
+function noop() { }
 
 const About = () => {
-	const [data, setLearningPath] = useState(0);
 
-	useEffect(() => {
-		fetch('/getLearningPath').then(res => res.json()).then(data => {
-			setLearningPath(data);
-		});
-	}, []);
 
 	return (
-		<div>
-			<h1>Dein Lernpfad</h1>
-			<p>
-				{data.name}, dein Lerntyp lässt sich nach Felder und Silverman als
-				<br /><br />
-				{data.learnTyp}
-				<br /><br />
-				klassifizieren.
-				Deshalb empfehlen wir dir den folgenden Lernpfad:
-				<br /><br />
-				<ul>
-					<li>
-						PDF zu Metriken zu Lines of Codes
-					</li>
-					<li>
-						Video zu Metriken zu Lines of Codes
-					</li>
-					<li>
-						Übung zu Metriken zu Lines of Codes
-					</li>
-				</ul>
-			</p>
-			<Link to={'/'}>
-				<button > Zum Startbildschirm </button>
-			</Link>
-		</div>
+		<>
+			<div role="presentation" onClick={noop()}>
+				<Breadcrumbs aria-label="breadcrumb">
+					<MLink
+						underline="hover"
+						sx={{ display: 'flex', alignItems: 'center' }}
+						color="inherit"
+						href="/"
+					>
+						<HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+						Dashboard
+					</MLink>
+					<MLink
+						underline="hover"
+						sx={{ display: 'flex', alignItems: 'center' }}
+						color="inherit"
+					>
+						Wirtschaftsinformatik I
+					</MLink>
+					<Typography
+						sx={{ display: 'flex', alignItems: 'center' }}
+						color="text.primary"
+					>
+
+						Lernpfad
+					</Typography>
+				</Breadcrumbs>
+			</div>
+			<Flow />
+		</>
 	);
 };
 
-export default Flow;
-export { About };
+export default About;
+export { Flow };

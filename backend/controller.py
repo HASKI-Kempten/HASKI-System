@@ -1,14 +1,17 @@
 from flask import Flask, jsonify, request
 import json
 import random
+from data.elements import elements as E
 
 app = Flask(__name__)
 
-elements = {"elements": [
-        { "id": 1, "name": "My first", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 90 },
-        { "id": 2, "name": "My second element", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 75 },
-        { "id": 3, "name": "My last element", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 120 }
-    ]}
+elements = { "elements": E}
+
+# elements = {"elements": [
+#     { "id": 1, "name": "My first", "position": 2, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },
+#     { "id": 2, "name": "My second element", "position": 3, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 },
+#     { "id": 3, "name": "My last element", "position": 4, "difficulty": "Easy", "progress": 2, "date": "2022-06-13T16:05:54.908Z", "topic": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "duration": 1.5 }
+#     ]}
 
 learning_path = {"1-987": [{"id": 1, "moduleId": 987, "module": "Informatik I", "elements": [
         {"elementId": 12, "position": "1.1"},
@@ -32,9 +35,9 @@ def upload_element():
     new_element = {
         'id': len(elements['elements'])+1,
         'name': uploaded_element['name'].strip(),
-        'difficulty': 'Easy',
-        'creationDate': uploaded_element['date'],
-        'module': uploaded_element['topic'].strip(),
+        'difficulty': '1',
+        'creationDate': uploaded_element['creationDate'].strip(),
+        'modul': uploaded_element['modul'].strip(),
         'semester': uploaded_element['semester'],
         'style': uploaded_element['style'].strip(),
         'proLIST': '',

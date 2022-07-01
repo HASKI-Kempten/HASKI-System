@@ -10,12 +10,15 @@ const Home = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welccome to the HASKI project!
+          Welcome to the HASKI project!
         </p>
         <br />
         <ul>
           <li>
             <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/courseDashboard">Course Dashboard</Link>
           </li>
           <li>
             <Link to="/quiz">Finde deinen Lerntypen heraus</Link>

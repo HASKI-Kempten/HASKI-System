@@ -771,6 +771,7 @@ components:
       - "style"
       - "proLIST"
       - "contraLIST"
+      - "type"
       properties:
         id:
           type: "integer"
@@ -808,6 +809,9 @@ components:
           type: "string"
           example: "visual"
           description: "Format the elemnt has"
+        type: 
+          type: "string"
+          example: "PDF"
         proLIST:
           type: "string"
           example: "Lorem Ipsum"
@@ -846,6 +850,7 @@ components:
       - "topic"
       - "semester"
       - "style"
+      - "type"
       properties:
         name:
           type: "string"
@@ -863,6 +868,9 @@ components:
         style: 
           type: "string"
           example: "visual"
+        type: 
+          type: "string"
+          example: "PDF"
     GeneralError: 
       type: "object"
       required: 

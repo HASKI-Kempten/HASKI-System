@@ -22,13 +22,10 @@
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
 
-/backend/__pycache__
+__pycache__/
+.pytest_cache/
 /backend/venv
-/backend/tests/__pycache__
-/backend/tests/.pytest_cache
 frontend/yarn.lock
 /node_modules
 yarn.lock
-.vscode/launch.json
-backend/data/__pycache__/__init__.cpython-39.pyc
-backend/data/__pycache__/elements.cpython-39.pyc
+.vscode/launch.jsonc

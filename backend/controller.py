@@ -1,281 +1,302 @@
+import re
 from flask import Flask, jsonify, request
-import json
-import random
+from pytest import param
+from database.db_connector import DbConnector
+from models.data.element import Element
+from models.data.learning_way import LearningWay
+from models.data.learning_way_element import LearningWayElement
+from models.data.module import Module
+from models.data.learing_path import LearningPath
+from models.data.element_meta import ElementMeta
+from models.data.student import Student
+from models.data.student_module import StudentModule
 
 app = Flask(__name__)
 
-elements = {"elements": [
-        { "id": 1, "name": "My first", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 90 },
-        { "id": 2, "name": "My second element", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 75 },
-        { "id": 3, "name": "My last element", "difficulty": "Easy", "creationDate": 1656330943, "module": "Informatik I", "semester": 2, "style": "visual", "proLIST": "Lorem Ipsum", "contraLIST": "Lorem Ipsum", "averageDuration": 120 }
-    ]}
-
-learning_path = {"1-987": [{"id": 1, "moduleId": 987, "module": "Informatik I", "elements": [
-        {"elementId": 12, "position": "1.1"},
-        {"elementId": 2, "position": "1.2"},
-        {"elementId": 3, "position": "2.1"}
-    ]}] }
-
-learning_way ={}
-
-module =  {"modules": [{"id": 1, "name": "Einführung in die Informatik", "module": "IT-1234", "semester": 1},{"id": 2, "name": "Einführung in die Informatik II", "module": "IT-9876", "semester": 2}]}
-
-students = {"students": [{"id": 1, "name": "Max Musterfrau", "semester": 2, "style": "Active, Verbal, Intuitive, Global", "courseOfStudy": "Angewandte Informatik", "modules": [{"id": 1, "name": "Einführung in die Programmierung", "module": "IT-1234", "semester": 1}]}]}
-
+#Elements
 @app.route('/elements')
 def get_elements():
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    elements = {}
+    elements_new = []
+    for result in cursor.execute('SELECT * FROM element').fetchall():
+        element = Element(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9], result[10])
+        elements_new.append(element.__dict__)
+    cursor.close()
+    elements['elements'] = elements_new
     return jsonify(elements)
 
 @app.route('/elements', methods=['POST'])
-def upload_element():
-    uploaded_element = request.get_json()
-    new_element = {
-        'id': len(elements['elements'])+1,
-        'name': uploaded_element['name'].strip(),
-        'difficulty': 'Easy',
-        'creationDate': uploaded_element['date'],
-        'module': uploaded_element['topic'].strip(),
-        'semester': uploaded_element['semester'],
-        'style': uploaded_element['style'].strip(),
-        'proLIST': '',
-        'contraLIST': '',
-        'averageDuration': 0
-    }
-    elements['elements'].append(new_element)
-    return jsonify(elements['elements'][new_element['id']-1]), 201
+def create_element():
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (params['name'].strip(), '0', params['date'], params['topic'].strip(), 0, params['semester'], params['style'].strip(), params['type'].strip(), 'Lorem Ipsum', 'Lorem Ipsum')
+            )
+    cursor.commit()
+    id = cursor.execute("SELECT MAX(id) FROM element").fetchone()[0]
+    result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
+    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10])
+    cursor.close()
+    return jsonify(element.__dict__), 201
 
 @app.route('/elements/<int:id>')
 def get_element_by_id(id):
-    for element in elements['elements']:
-        if element['id'] == id:
-            return jsonify(element)
-    return {'code': 404, 'message': "Element not found!"}
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
+    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10])
+    cursor.close()
+    return jsonify(element.__dict__)
 
 @app.route('/elements/<int:id>', methods=['PUT'])
 def update_element(id):
-    updated_element = request.get_json(force=True)
-    if 'name' in updated_element:
-        name = updated_element['name']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'name': name})
-    if 'position' in updated_element:
-        position = updated_element['position']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'position': position})
-    if 'difficulty' in updated_element:
-        difficulty = updated_element['difficulty']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'difficulty': difficulty})
-    if 'progress' in updated_element:
-        progress = updated_element['progress']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'progress': progress})
-    if 'date' in updated_element:
-        date = updated_element['date']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'date': date})
-    if 'topic' in updated_element:
-        topic = updated_element['topic']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'topic': topic})
-    if 'semester' in updated_element:
-        semester = updated_element['semester']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'semester': semester})
-    if 'style' in updated_element:
-        style = updated_element['style']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'style': style})
-    if 'proLIST' in updated_element:
-        proLIST = updated_element['proLIST']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'proLIST': proLIST})
-    if 'contraLIST' in updated_element:
-        contraLIST = updated_element['contraLIST']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'contraLIST': contraLIST})
-    if 'duration' in updated_element:
-        duration = updated_element['duration']
-        for element in elements['elements']:
-            if element['id'] == id:
-                element.update({'duration': duration})
-    return jsonify(elements['elements'][id-1])
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("UPDATE element SET name=? WHERE id=?",(params['name'], params['id']))
+    cursor.commit()
+    result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
+    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10])
+    cursor.close()
+    return jsonify(element.__dict__)
 
+#Students
 @app.route('/student')
 def get_students():
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    students = {}
+    students_new = []
+    for result in cursor.execute('SELECT * FROM student').fetchall():
+        modules_new = []
+        for result_module in cursor.execute('SELECT * FROM studentModule WHERE studentId=?', (str(result[0]))).fetchall():
+            module = StudentModule(result_module[0],result_module[1],result_module[2])
+            modules_new.append(module.__dict__)
+        student = Student(result[0],result[1],result[2],result[3],result[4], modules_new)
+        students_new.append(student.__dict__)
+    cursor.close()
+    students['students'] = students_new
     return jsonify(students)
 
 @app.route('/student', methods=['POST'])
 def create_student():
-    created_student = request.get_json()
-    name, semester, courseOfStudy = created_student['name'].strip(),created_student['semester'],created_student['courseOfStudy'].strip()
-    new_student = {
-        'id': len(students['students'])+1,
-        'name': name,
-        'semester': semester,
-        'style': '',
-        'courseOfStudy': courseOfStudy,
-        'modules': []
-    }
-    students['students'].append(new_student)
-    return jsonify(students['students'][new_student['id']-1]), 201
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("INSERT INTO student (name, semester, style, courseOfStudy) VALUES (?, ?, ?, ?)",
+            (params['name'].strip(), params['semester'], "", params['courseOfStudy'].strip())
+            )
+    cursor.commit()
+    id = cursor.execute("SELECT MAX(id) FROM student").fetchone()[0]
+    result = cursor.execute('SELECT * FROM student WHERE ID=%d' %id).fetchall()
+    student = Student(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],[])
+    cursor.close()
+    return jsonify(student.__dict__), 201
 
 @app.route('/student/<int:studentId>')
 def get_student_by_id(studentId):
-    for student in students['students']:
-        if student['id'] == studentId:
-            return jsonify(student)
-    return {'code': 404, 'message': "Student not found!"}
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    result = cursor.execute('SELECT * FROM student WHERE id=?', str(studentId)).fetchall()
+    modules_new = []
+    for result_module in cursor.execute('SELECT * FROM studentModule WHERE studentId=?', (str(studentId))).fetchall():
+        module = StudentModule(result_module[0],result_module[1],result_module[2])
+        modules_new.append(module.__dict__)
+    cursor.close()
+    student = Student(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], modules_new)
+    return jsonify(student.__dict__)
 
 @app.route('/student/<int:studentId>', methods=['PUT'])
 def update_student(studentId):
-    updated_student = request.get_json(force=True)
-    if 'name' in updated_student:
-        for student in students['students']:
-            if student['id'] == studentId:
-                student.update({'name': updated_student['name']})
-    if 'semester' in updated_student:
-        for student in students['students']:
-            if student['id'] == studentId:
-                student.update({'semester': updated_student['semester']})
-    if 'style' in updated_student:
-        for student in students['students']:
-            if student['id'] == studentId:
-                student.update({'style': updated_student['style']})
-    if 'courseOfStudy' in updated_student:
-        for student in students['students']:
-            if student['id'] == studentId:
-                student.update({'courseOfStudy': updated_student['courseOfStudy']})
-    if 'modules' in updated_student:
-        for student in students['students']:
-            if student['id'] == studentId:
-                student.update({'modules': updated_student['modules']})
-    return jsonify(students['students'][studentId-1])
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("UPDATE student SET name=?, semester=?, courseOfStudy=?, style=? WHERE id=?",(params['name'], params['semester'], params['courseOfStudy'], params['style'], str(studentId)))
+    cursor.execute("DELETE FROM studentModule WHERE studentId=?", (str(studentId)))
+    for module in params['modules']:
+        cursor.execute("INSERT INTO studentModule (studentId, moduleId) VALUES (?, ?)", (str(studentId), module['id']))
+    result = cursor.execute('SELECT * FROM student WHERE id=?', str(studentId)).fetchall()
+    modules_new = []
+    for result_module in cursor.execute('SELECT * FROM studentModule WHERE studentId=?', (str(studentId))).fetchall():
+        module = StudentModule(result_module[0],result_module[1],result_module[2])
+        modules_new.append(module.__dict__)
+    student = Student(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], modules_new)
+    cursor.commit()
+    cursor.close()
+    return jsonify(student.__dict__)
 
+#Learning Paths
 @app.route('/learningPath/<int:pathId>/<int:moduleId>')
 def get_learning_path_for_student(pathId,moduleId):
-    id = str(pathId) + "-" + str(moduleId)
-    return jsonify(learning_path[id][0]),200
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    result = cursor.execute('SELECT * FROM learningPath WHERE id=%d AND moduleId=%d' %(pathId, moduleId)).fetchall()
+    elements_new = []
+    for result_element in cursor.execute('SELECT * FROM elementMetaPath WHERE learningPath=%d' %(pathId)):
+        element = ElementMeta(result_element[0],result_element[1],result_element[2],result_element[3])
+        elements_new.append(element.__dict__)
+    if not result:
+        return jsonify({'message': 'Id not found', 'code': 404}), 404
+    learning_path = LearningPath(result[0][0],result[0][1],result[0][2], elements_new)
+    cursor.close()
+    return jsonify(learning_path.__dict__)
 
 @app.route('/learningPath', methods=['POST'])
 def create_learning_Path():
-    created_learning_path = request.get_json()
-    id = str(len(learning_path)+1) + "-" + str(created_learning_path['moduleId'])
-    new_elements = []
-    for element in created_learning_path['elements']:
-        new_elements.append({
-            'elementId': element['elementId'],
-            'position': element['position'].strip()
-        })
-    new_learning_path = [{
-        'id': id,
-        'moduleId': created_learning_path['moduleId'],
-        'module': created_learning_path['module'],
-        'elements': new_elements        
-    }]
-    learning_path[id] = new_learning_path
-    return jsonify(learning_path[id][0]), 201
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("INSERT INTO learningPath (moduleId, module) VALUES (?, ?)",
+            (params['moduleId'], params['module'].strip())
+            )
+    cursor.commit()
+    id = cursor.execute("SELECT MAX(id) FROM learningPath").fetchone()[0]
+    for element in params['elements']:
+        cursor.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)", (element['elementId'],id, element['position']))
+    cursor.commit()
+    result = cursor.execute("SELECT * FROM learningPath WHERE id=%d" %id).fetchall()
+    elements_new = []
+    for result_element in cursor.execute("SELECT * FROM elementMetaPath WHERE learningPath=%d" %id):
+        element = ElementMeta(result_element[0],result_element[1],result_element[2],result_element[3])
+        elements_new.append(element.__dict__)
+    if not result:
+        return jsonify({'message': 'Id not found', 'code': 404}), 404
+    learning_path = LearningPath(result[0][0],result[0][1],result[0][2], elements_new)
+    cursor.close()
+    return jsonify(learning_path.__dict__),201
 
 @app.route('/learningPath/<int:pathId>/<int:moduleId>', methods=['PUT'])
 def update_learning_path(pathId,moduleId):
-    created_learning_path = request.get_json()
-    id = str(pathId) + "-" + str(moduleId)
-    new_elements = []
-    for element in created_learning_path['elements']:
-        new_elements.append({
-            'elementId': element['elementId'],
-            'position': element['position'].strip()
-        })
-    new_learning_path = [{
-        'id': pathId,
-        'moduleId': created_learning_path['moduleId'],
-        'module': created_learning_path['module'],
-        'elements': new_elements        
-    }]
-    learning_path[id] = new_learning_path
-    return jsonify(learning_path[id][0]), 200
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("UPDATE learningPath SET moduleId=?, module=? WHERE id=?", (params['moduleId'],params['module'],pathId))
+    cursor.execute("DELETE FROM elementMetaPath WHERE learningPath=?", (str(pathId)))
+    for element in params['elements']:
+        cursor.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)", (element['elementId'], pathId, element['position']))
+    cursor.commit()
+    result = cursor.execute("SELECT * FROM learningPath WHERE id=?", str(pathId)).fetchall()
+    elements_new = []
+    for result_element in cursor.execute("SELECT * FROM elementMetaPath WHERE learningPath=?", str(pathId)):
+        element = ElementMeta(result_element[0],result_element[1],result_element[2],result_element[3])
+        elements_new.append(element.__dict__)
+    if not result:
+        return jsonify({'message': 'Id not found', 'code': 404}), 404
+    learning_path = LearningPath(result[0][0],result[0][1],result[0][2], elements_new)
+    cursor.close()
+    return jsonify(learning_path.__dict__),200
 
+#Learning Ways
 @app.route('/learningWay/<int:studentId>/<int:moduleId>', methods=['POST'])
 def create_learning_way(studentId, moduleId):
-    created_learning_way = request.get_json()
-    id = str(studentId) + "-" + str(len(learning_way)+1)
-    way_id = len(learning_way)+1
-    new_learning_way = {}
-    new_learning_way['id'] = way_id
-    new_learning_way['moduleId'] = moduleId
-    new_learning_way['studentId'] = studentId
-    new_learning_way['recommendedElement'] = None
-    for key in learning_path:
-        if str("-"+str(moduleId)) in key:
-            new_learning_way['elements'] = learning_path[key][0]['elements']
-            for element in new_learning_way['elements']:
-                element['done'] = False
-                element['doneAt'] = None
-                element['evaluation'] = None
-            new_learning_way['module'] = learning_path[key][0]['module'] 
-    if "module" not in new_learning_way:
-        new_learning_way['elements'] = None
-        new_learning_way['module'] = None
-    learning_way[id] = new_learning_way
-    print(id)
-    return jsonify(new_learning_way), 201
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("INSERT INTO learningWay (module, moduleId, studentId) VALUES (?, ?, ?)",
+            (params['module'].strip(), moduleId, studentId)
+            )
+    cursor.commit()
+    id = cursor.execute("SELECT MAX(id) FROM learningWay").fetchone()[0]
+    for element in params['elements']:
+        cursor.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)", (element['elementId'],element['done'], element['doneAt'] if "doneAt" in element else None, element['evaluation'] if "evaluation" in element else None, element['position'], id))
+    cursor.commit()
+    result = cursor.execute("SELECT * FROM learningWay WHERE id=?", str(id)).fetchall()
+    elements_new = []
+    for result_element in cursor.execute("SELECT * FROM learningWayElement WHERE learningWayId=?", str(id)):
+        element = LearningWayElement(result_element[0],result_element[1],result_element[2],result_element[3],result_element[4], result_element[5],result_element[5])
+        elements_new.append(element.__dict__)
+    learning_way = LearningWay(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], elements_new)
+    cursor.close()
+    return jsonify(learning_way.__dict__),201
 
 @app.route('/learningWay/<int:studentId>/<int:moduleId>/<int:learningWayId>', methods=['PUT'])
 def update_learning_way(studentId,moduleId,learningWayId):
-    updated_learning_way = request.get_json()
-    id = str(studentId) + "-" + str(learningWayId)
-    new_learning_way = learning_way[id]
-    new_learning_way['module'] = updated_learning_way['module']
-    new_learning_way['moduleId'] = updated_learning_way['moduleId']
-    new_learning_way['elements'] = updated_learning_way['elements']
-    new_learning_way['recommendedElement'] = updated_learning_way['recommendedElement']
-    return jsonify(new_learning_way),200
+    params = request.get_json()
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("UPDATE learningWay SET moduleId=?, module=?, studentId=?, recommendedElement=? WHERE id=?", (moduleId, params['module'], studentId, params['recommendedElement'] if "recommendedElement" in params else None, learningWayId))
+    cursor.execute("DELETE FROM learningWayElement WHERE learningWayId=?", (str(learningWayId)))
+    for element in params['elements']:
+        cursor.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)", (element['elementId'],element['done'], element['doneAt'] if "doneAt" in element else None, element['evaluation'] if "evaluation" in element else None, element['position'], learningWayId))
+    cursor.commit()
+    result = cursor.execute("SELECT * FROM learningWay WHERE id=?", str(learningWayId)).fetchall()
+    elements_new = []
+    for result_element in cursor.execute("SELECT * FROM learningWayElement WHERE learningWayId=?", str(learningWayId)):
+        element = LearningWayElement(result_element[0],result_element[1],result_element[2],result_element[3],result_element[4], result_element[5],result_element[5])
+        elements_new.append(element.__dict__)
+    learning_way = LearningWay(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], elements_new)
+    cursor.close()
+    return jsonify(learning_way.__dict__),200
 
 @app.route('/learningWay/<int:studentId>/<int:moduleId>/<int:learningWayId>')
 def get_learning_way_for_student(studentId,moduleId,learningWayId):
-    id = str(studentId) + "-" + str(learningWayId)
-    return jsonify(learning_way[id])
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    result = cursor.execute('SELECT * FROM learningWay WHERE studentId=? AND moduleId=? AND id=?', (str(studentId), str(moduleId), str(learningWayId))).fetchall()
+    if not result:
+        return jsonify({'message': 'Id not found', 'code': 404}), 404
+    elements_new = []
+    for result_element in cursor.execute('SELECT * FROM learningWayElement WHERE learningWayId=?', str(learningWayId)):
+        element = LearningWayElement(result_element[0],result_element[1],result_element[2],result_element[3],result_element[4],result_element[5], result_element[6])
+        elements_new.append(element.__dict__)
+    learning_way = LearningWay(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], elements_new)
+    cursor.close()
+    return jsonify(learning_way.__dict__)
 
+#Modules
 @app.route('/modules')
 def get_all_modules():
-    return jsonify(module), 200
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    modules = {}
+    module_new = []
+    for result in cursor.execute('SELECT * FROM module').fetchall():
+        module = Module(result[0],result[1],result[2],result[3])
+        module_new.append(module.__dict__)
+    cursor.close()
+    modules['modules'] = module_new
+    return jsonify(modules)
 
 @app.route('/modules', methods=['POST'])
 def create_module():
     params = request.get_json()
-    new_module = {}
-    new_module['id'] = len(module['modules'])+1
-    new_module['name'] = params['name']
-    new_module['module'] = params['module']
-    new_module['semester'] = params['semester']
-    module['modules'].append(new_module)
-    return jsonify(new_module), 201
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
+            (params['name'].strip(), params['module'], params['semester'])
+            )
+    cursor.commit()
+    id = cursor.execute("SELECT MAX(id) FROM module").fetchone()[0]
+    result = cursor.execute('SELECT * FROM module WHERE id=%d' %id).fetchall()
+    module = Module(result[0][0],result[0][1],result[0][2],result[0][3])
+    cursor.close()
+    return jsonify(module.__dict__), 201
 
 @app.route('/modules/<int:moduleId>')
 def get_module_by_id(moduleId):
-    for element in module['modules']:
-        if element['id'] == moduleId:
-            return jsonify(element), 200
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    result = cursor.execute('SELECT * FROM module WHERE ID=%d' %moduleId).fetchall()
+    if not result:
+        return jsonify({'message': 'Id not found', 'code': 404}), 404
+    module = Module(result[0][0],result[0][1],result[0][2],result[0][3])
+    cursor.close()
+    return jsonify(module.__dict__)
 
 @app.route('/modules/<int:moduleId>', methods=['PUT'])
 def update_module(moduleId):
     params = request.get_json()
-    for element in module['modules']:
-        if element['id'] == moduleId:
-            element['name'] = params['name']
-            element['module'] = params['module']
-            element['semester'] = params['semester']
-            return jsonify(element), 200
+    conn = DbConnector('database/database.db')
+    cursor = conn.get_db_connection()
+    cursor.execute("UPDATE module SET name=?, module=?, semester=? WHERE id=?",(params['name'], params['module'], params['semester'], moduleId))
+    cursor.commit()
+    result = cursor.execute('SELECT * FROM module WHERE ID=%d' %moduleId).fetchall()
+    module = Module(result[0][0],result[0][1],result[0][2],result[0][3])
+    cursor.close()
+    return jsonify(module.__dict__)
 
 if __name__ == '__main__':
     app.run(debug=True)

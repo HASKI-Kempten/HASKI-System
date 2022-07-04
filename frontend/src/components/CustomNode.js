@@ -83,7 +83,7 @@ function CustomNode({ data }) {
                     <p style={{ 'padding': '0.3rem 0.3rem 0.0rem 0.3rem', 'fontWeight': '400', 'fontFamily': 'monospace', }}>
                         {data.label}</p>
                     <p style={{ 'padding': '0.3rem', 'paddingTop': '0px', 'fontSize': '10%', 'fontFamily': 'monospace', }}>
-                        {data.modul}</p>
+                        {data.module}</p>
                 </div>
             </div>
             <div style={{ ...footer_style, backgroundColor: color }}>

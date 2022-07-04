@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# backend
+/backend/database/database.db
+
 # dependencies
 /frontend/node_modules
 /frontend/.pnp
@@ -28,4 +31,4 @@ __pycache__/
 frontend/yarn.lock
 /node_modules
 yarn.lock
-.vscode/launch.jsonc
+.vscode/launch.json

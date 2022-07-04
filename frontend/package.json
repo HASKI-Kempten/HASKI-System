@@ -25,6 +25,7 @@
     "start:debug": "node --inspect-brk=5858 ./index.js",
     "start-api": "cd ../backend && venv/bin/flask run --no-debugger",
     "start-api-windows": "cd ../backend && venv\\Scripts\\flask run --no-debugger",
+    "start-api-conda": "cd ../backend && flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

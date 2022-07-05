@@ -26,6 +26,7 @@ Windows (Anaconda):
     $ conda create --name haski
     $ conda activate haski
     $ pip install -r requirements.txt
+    $ pip install python-dotenv
 
 Anschließend in den frontend Ordner wechseln:
 

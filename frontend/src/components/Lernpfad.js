@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { Paper, Button } from '@mui/material';
+import MenuAppBar from './MenuBar';
 
 function Flow() {
 
@@ -111,41 +112,8 @@ const About = () => {
 
 	return (
 		<>
-			<div role="presentation" onClick={noop()}>
-				<Breadcrumbs aria-label="breadcrumb">
-					<MLink
-						underline="hover"
-						sx={{ display: 'flex', alignItems: 'center' }}
-						color="inherit"
-						href="/"
-					>
-						<HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-						Dashboard
-					</MLink>
-					<MLink
-						underline="hover"
-						sx={{ display: 'flex', alignItems: 'center' }}
-						color="inherit"
-					>
-						Wirtschaftsinformatik I
-					</MLink>
-					<MLink
-						underline="hover"
-						sx={{ display: 'flex', alignItems: 'center' }}
-						color="inherit"
-					>
-						Qualitätssicherung durch Metriken
-					</MLink>
-					<Typography
-						sx={{ display: 'flex', alignItems: 'center' }}
-						color="text.primary"
-					>
-
-						Metriken
-					</Typography>
-				</Breadcrumbs>
-
-			</div>
+			<MenuAppBar />
+			
 			<Stack spacing={2} sx={{ height: '100%' }}>
 				<Container maxWidth="md" sx={{ marginTop: 2 }}>
 					{/* kurzübersicht stack */}

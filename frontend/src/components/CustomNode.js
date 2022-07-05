@@ -74,7 +74,7 @@ function CustomNode({ data }) {
     const difficulty = data.difficulty === "1" ? 'easy' : data.difficulty === "2" ? 'medium' : data.difficulty === "3" ? 'hard' : 'NONE'
     return (
         <div style={node_style}>
-            <Handle type="target" position={Position.Left} />
+            <Handle type="target" position={Position.Top} />
             <div>
                 <div style={{ ...header_style, backgroundColor: color }}>
                     {data.type}
@@ -97,7 +97,7 @@ function CustomNode({ data }) {
                 </div>
 
             </div>
-            <Handle type="source" position={Position.Right} id="a" />
+            <Handle type="source" position={Position.Bottom} id="a" />
         </div >
     );
 }

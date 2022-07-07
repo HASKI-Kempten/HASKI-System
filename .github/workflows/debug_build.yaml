@@ -2,7 +2,7 @@ name: Build both frontend and backend debug image
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   publish_backend:
     runs-on: ubuntu-latest

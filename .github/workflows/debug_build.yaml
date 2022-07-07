@@ -1,4 +1,4 @@
-name: Build both frontend and backend debug image
+name: frontend and backend
 on:
   push:
     branches:

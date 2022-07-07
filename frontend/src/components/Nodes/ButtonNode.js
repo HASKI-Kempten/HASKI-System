@@ -12,14 +12,14 @@ const round_button_a = {
     width: '100%',
     paddingTop: '50%',
     paddingBottom: '50%',
-    'line-height': '1em',
+    'lineHeight': '1em',
     marginTop: '-0.5em',
-    'text-align': 'center',
+    'textAlign': 'center',
     color: '#e2eaf3',
-    'font-family': 'Verdana',
-    'font-weight': 'bold',
-    'font-size': '2rem',
-    'text-decoration': 'none',
+    'fontFamily': 'Verdana',
+    'fontWeight': 'bold',
+    'fontSize': '2rem',
+    'textDecoration': 'none',
 }
 
 const round_button_circle = {
@@ -31,7 +31,7 @@ const round_button_circle = {
     overflow: 'hidden',
 
     background: '#4679BD',
-    'box-shadow': defaultBehavior.boxShadowSize.default + defaultColors.lightgrey,
+    boxShadow: defaultBehavior.boxShadowSize.default + defaultColors.lightgrey,
     ':hover': {
         background: '#30588e',
     }

@@ -14,7 +14,9 @@ import Divider from '@mui/material/Divider';
 import { Paper, Button } from '@mui/material';
 import MenuAppBar from './MenuBar';
 
-function Flow() {
+function Flow({ elements }) {
+
+	const backendPath = process.env.REACT_APP_BACKENDHOST || 'http://localhost:5000';
 
 	const nodeTypes = useMemo(() => ({ special: BasicNode }), []);
 	// https://reactflow.dev/docs/api/nodes/node-options/
@@ -47,7 +49,8 @@ function Flow() {
 	);
 
 	useEffect(() => {
-		fetch('http://localhost:5000/elements').then(res => res.json()).then(data => {
+
+		fetch(backendPath + '/elements').then(res => res.json()).then(data => {
 
 			setNodes(data.elements.map((element, i, arr) => {
 				const type = i === 0 ? 'special' : i === arr.length - 1 ? 'output' : 'special';
@@ -70,7 +73,7 @@ function Flow() {
 
 					},
 					// position: { x: element.id * 250, y: 100 },
-					position: { x: 250, y: element.id * 250 },
+					position: { x: 250, y: element.id * 400 },
 				}
 			}));
 
@@ -89,7 +92,7 @@ function Flow() {
 
 		}
 		);
-	}, [handleTransform]);
+	}, [handleTransform, backendPath]);
 
 
 
@@ -114,13 +117,7 @@ function Flow() {
 function noop() { }
 
 const About = () => {
-	const [data, setData] = useState();
-	useEffect(() => {
-		fetch('http://localhost:5000/elements').then(res => res.json()).then(data => {
-			setData(data);
-		}
-		);
-	}, []);
+
 
 	return (
 		<>

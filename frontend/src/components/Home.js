@@ -26,6 +26,9 @@ const Home = () => {
           <li>
             <Link to="/learningPath">Lernpfad ansehen</Link>
           </li>
+          <li>
+            <Link to="/theme">Theme presentation</Link>
+          </li>
         </ul>
       </header>
     </div>

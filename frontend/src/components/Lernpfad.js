@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import ReactFlow, { addEdge, applyEdgeChanges, applyNodeChanges, Background } from 'react-flow-renderer';
+import ReactFlow, { useReactFlow, addEdge, applyEdgeChanges, applyNodeChanges, Background, ReactFlowProvider } from 'react-flow-renderer';
 import CustomControls from './CustomControls';
-import CustomNode from './CustomNode';
+import BasicNode from './CustomNode';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { default as MLink } from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import { Container } from '@mui/system';
-import { Grid } from '@mui/material';
+import { Card, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -16,7 +16,7 @@ import MenuAppBar from './MenuBar';
 
 function Flow() {
 
-	const nodeTypes = useMemo(() => ({ special: CustomNode }), []);
+	const nodeTypes = useMemo(() => ({ special: BasicNode }), []);
 	// https://reactflow.dev/docs/api/nodes/node-options/
 	// https://reactflow.dev/docs/api/edges/edge-options/
 
@@ -37,11 +37,20 @@ function Flow() {
 		[setEdges]
 	);
 
+	const { setViewport, zoomIn, zoomOut } = useReactFlow();
+
+	const handleTransform = useCallback(
+		() => {
+			setViewport({ x: 150, y: -200, zoom: 1.2 }, { duration: 800 });
+		},
+		[setViewport]
+	);
+
 	useEffect(() => {
-		fetch('/elements').then(res => res.json()).then(data => {
+		fetch('http://localhost:5000/elements').then(res => res.json()).then(data => {
 
 			setNodes(data.elements.map((element, i, arr) => {
-				const type = i === 0 ? 'input' : i === arr.length - 1 ? 'output' : 'special';
+				const type = i === 0 ? 'special' : i === arr.length - 1 ? 'output' : 'special';
 				return {
 					id: (element.id).toString(),
 					type: type,
@@ -74,11 +83,14 @@ function Flow() {
 					animated: true,
 					markerEnd: { type: 'arrow' },
 				}
-			}))
+			}));
+
+			handleTransform();
 
 		}
 		);
-	}, []);
+	}, [handleTransform]);
+
 
 
 	return (
@@ -104,7 +116,7 @@ function noop() { }
 const About = () => {
 	const [data, setData] = useState();
 	useEffect(() => {
-		fetch('/elements').then(res => res.json()).then(data => {
+		fetch('http://localhost:5000/elements').then(res => res.json()).then(data => {
 			setData(data);
 		}
 		);
@@ -113,45 +125,12 @@ const About = () => {
 	return (
 		<>
 			<MenuAppBar />
-			
+
 			<Stack spacing={2} sx={{ height: '100%' }}>
-				<Container maxWidth="md" sx={{ marginTop: 2 }}>
-					{/* kurzübersicht stack */}
-					<Paper elevation={2} sx={{ padding: 2 }}>
-						<Stack spacing={2}>
-							<h3>Kurzüberblick</h3>
-							<Stack
-								direction="row"
-								justifyContent="flex-start"
-								alignItems="center"
-								spacing={2}
-							>
-								<h4>Metriken 1</h4>
-								<Divider orientation="vertical" variant="middle" flexItem />
-								<h4>1h 22 min</h4>
-							</Stack>
-							<Grid container
-								justifyContent="center"
-								alignItems="center"
-							>
-								<Grid item xs={8}>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								</Grid>
-								<Grid container item xs={4} justifyContent="center">
-									<Grid item
-										justifyContent="center"
-										alignItems="center">
-										<Button variant="contained" size="large">
-											Continue
-										</Button>
-									</Grid>
-								</Grid>
-							</Grid>
-						</Stack>
-					</Paper>
-				</Container>
 				{/* Flow */}
-				<Flow />
+				<ReactFlowProvider>
+					<Flow />
+				</ReactFlowProvider>
 			</Stack>
 		</>
 

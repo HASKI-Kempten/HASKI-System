@@ -25,7 +25,9 @@ def get_elements():
         elements_new.append(element.__dict__)
     cursor.close()
     elements['elements'] = elements_new
-    return jsonify(elements)
+    response = jsonify(elements)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/elements', methods=['POST'])
 def create_element():
@@ -299,4 +301,4 @@ def update_module(moduleId):
     return jsonify(module.__dict__)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')

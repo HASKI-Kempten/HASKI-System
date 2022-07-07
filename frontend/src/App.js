@@ -11,6 +11,7 @@ import Quiz from "./components/Quiz";
 import CourseDashboard from "./components/CourseDashboard";
 import { ThemeProvider } from '@mui/material/styles';
 import { Theme } from "./components/CustomTheme";
+import ThemePresentation from "./components/ThemePresentation";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/courseDashboard" element={<CourseDashboard />} />
 						<Route path="/learningPath" element={<Lernpfad />} />
+						<Route path="/theme" element={<ThemePresentation />} />
 						<Route path="/quiz" element={<Quiz />} />
 					</Routes>
 				</Router>

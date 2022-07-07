@@ -10,6 +10,9 @@ cur = connection.cursor()
 
 # Initialize Elements 
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 Kurzüberblick', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'overview', '• Definition von Metrik•Unterschiedliche Verwendungszwecke von Metriken• Verschiedene Arten von Metriken und Einordnung von einigen Metriken ', 'Lorem Ipsum 2')
+            )
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

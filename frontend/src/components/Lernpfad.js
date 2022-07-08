@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import ReactFlow, { useReactFlow, addEdge, applyEdgeChanges, applyNodeChanges, Background, ReactFlowProvider } from 'react-flow-renderer';
 import CustomControls from './CustomControls';
-import BasicNode from './CustomNode';
+import BasicNode from './Nodes/CustomNode';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { default as MLink } from '@mui/material/Link';
@@ -43,7 +43,7 @@ function Flow({ elements }) {
 
 	const handleTransform = useCallback(
 		() => {
-			setViewport({ x: 150, y: -200, zoom: 1.2 }, { duration: 800 });
+			setViewport({ x: 300, y: -400, zoom: 1.2 }, { duration: 800 });
 		},
 		[setViewport]
 	);

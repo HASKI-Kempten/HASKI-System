@@ -2,11 +2,17 @@ import { createTheme } from '@mui/material/styles';
 export const defaultBehavior = {
     boxShadowSize: {
         default: '0 2px 0 ',
+        large: '0 0.5rem 0 ',
         hidden: '0 0 0 0 ',
     },
     border: {
         default: '2px solid ',
     }
+}
+
+export const defaultFonts = {
+    defaultFamily: 'din-round,sans-serif',
+    default: '700 var(--web-ui_button-font-size,15px)/var(--web-ui_button-line-height,1.2) din-round,sans-serif',
 }
 export const defaultColors = {
     primary: {
@@ -40,7 +46,7 @@ export const Theme = createTheme({
                 root: {
                     // Some CSS
                     color: defaultColors.lightgrey,
-                    font: '700 var(--web-ui_button-font-size,15px)/var(--web-ui_button-line-height,1.2) din-round,sans-serif',
+                    font: '700 var(--web-ui_button-font-size,15px)/var(--web-ui_button-line-height,1.2) ' + defaultFonts.default,
                     background: 'none',
                     border: defaultBehavior.border.default
                         + defaultColors.lightgrey,

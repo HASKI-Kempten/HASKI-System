@@ -85,46 +85,42 @@ function OverviewNode(props) {
     );
 
     return (
-        <div style={node_style}>
-            <Handle type="target" position={Position.Top} />
-            <Card sx={{ padding: 2, maxWidth: '400px' }}>
-                <Stack spacing={2}>
-                    {/* <Typography variant="h4" component="div" gutterBottom>
+        <Card sx={{ padding: 2, maxWidth: '400px' }}>
+            <Stack spacing={2}>
+                {/* <Typography variant="h4" component="div" gutterBottom>
                         Lernraum Metriken
                     </Typography> */}
-                    <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <h4>{props.data.label}</h4>
-                        <Divider orientation="vertical" variant="middle" flexItem />
-                        <h4>1h 22 min</h4>
-                    </Stack>
-                    <Grid container
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Grid item xs={8}>
-                            <Typography variant="body" component="div" gutterBottom>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </Typography>
-                        </Grid>
-                        <Grid container item xs={4} justifyContent="center">
-                            <Grid item
-                                justifyContent="center"
-                                alignItems="center">
-                                <Button onClick={handleTransform} variant="contained" size="large">
-                                    Continue
-                                </Button>
-                            </Grid>
+                <Stack
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={2}
+                >
+                    <h4>{props.data.label}</h4>
+                    <Divider orientation="vertical" variant="middle" flexItem />
+                    <h4>1h 22 min</h4>
+                </Stack>
+                <Grid container
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Grid item xs={8}>
+                        <Typography variant="body" component="div" gutterBottom>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </Typography>
+                    </Grid>
+                    <Grid container item xs={4} justifyContent="center">
+                        <Grid item
+                            justifyContent="center"
+                            alignItems="center">
+                            <Button onClick={handleTransform} variant="contained" size="large">
+                                Continue
+                            </Button>
                         </Grid>
                     </Grid>
-                </Stack>
-            </Card>
-            <Handle type="source" position={Position.Bottom} id="a" />
-        </div >
+                </Grid>
+            </Stack>
+        </Card>
     );
 }
 

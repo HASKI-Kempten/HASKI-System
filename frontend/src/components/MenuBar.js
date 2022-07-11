@@ -11,13 +11,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { Breadcrumbs } from '@mui/material';
+import { Breadcrumbs, Grid } from '@mui/material';
 import MLink from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
+import ChangeUserDialog from './Dialogs/ChangeUserDialog';
 
-export default function MenuAppBar() {
+export default function MenuAppBar({ handler, user }) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -32,8 +34,9 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      {/* <FormGroup>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        {/* <FormGroup>
         <FormControlLabel
           control={
             <Switch
@@ -45,100 +48,122 @@ export default function MenuAppBar() {
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup> */}
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <div role="presentation" sx={{ color: "white" }} >
-              <Breadcrumbs aria-label="breadcrumb" color="white">
-                <MLink
-                  underline="hover"
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                  color="inherit"
-                  href="/"
-                >
-                  <HomeIcon sx={{ mr: 0.5, color: 'white' }} fontSize="inherit" />
-                  Dashboard
-                </MLink>
-                <MLink
-                  underline="hover"
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                  color="inherit"
-                >
-                  Wirtschaftsinformatik I
-                </MLink>
-                <MLink
-                  underline="hover"
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                  color="inherit"
-                >
-                  Qualitätssicherung durch Metriken
-                </MLink>
-                <Typography
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                  color="grey"
-                >
+        <AppBar position="static" color='secondary'>
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  <div role="presentation" >
+                    <Breadcrumbs aria-label="breadcrumb" color="inherit">
+                      <MLink
+                        underline="hover"
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                        color="inherit"
+                        href="/"
+                      >
+                        <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                        Dashboard
+                      </MLink>
+                      <MLink
+                        underline="hover"
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                        color="inherit"
+                      >
+                        Wirtschaftsinformatik I
+                      </MLink>
+                      <MLink
+                        underline="hover"
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                        color="inherit"
+                      >
+                        Qualitätssicherung durch Metriken
+                      </MLink>
+                      <Typography
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                        color="grey"
+                      >
 
-                  Metriken
+                        Metriken
+                      </Typography>
+                    </Breadcrumbs>
+
+                  </div>
                 </Typography>
-              </Breadcrumbs>
+              </Grid>
+              <Grid item>
+                {auth && (
+                  <Grid container spacing={2}
+                    direction="row"
+                    justifyContent="flex-end"
+                    alignItems="center">
+                    <Grid item>
+                      <Typography >{user}</Typography>
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                      >
+                        <AccountCircle />
+                      </IconButton>
+                    </Grid>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleClose}>Profil</MenuItem>
+                      <MenuItem onClick={handleClose}>Mein Account</MenuItem>
+                      <MenuItem onClick={() => handler(true)}>Nutzer wechseln</MenuItem>
+                      <MenuItem onClick={handleClose}><FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={auth}
+                              onChange={handleChange}
+                              aria-label="login switch"
+                            />
+                          }
+                          label={auth ? 'Ausloggen' : 'Einloggen'}
+                        />
+                      </FormGroup></MenuItem>
+                    </Menu>
 
-            </div>
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}><FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={auth}
-                        onChange={handleChange}
-                        aria-label="login switch"
-                      />
-                    }
-                    label={auth ? 'Logout' : 'Login'}
-                  />
-                </FormGroup></MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+                  </Grid>
+                )}
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </>
   );
 }

@@ -16,13 +16,16 @@ export const defaultFonts = {
 }
 export const defaultColors = {
     primary: {
-        900: '#45A2EF',
-        800: '#1277ca',
+        900: '#45A2EF', // haski blue
+        800: '#1277ca', // haski dark blue
     },
     secondary: {
+        900: '#ffffff', // white
+        100: '#333333', // dark grey
     },
     lightgrey: 'lightgrey',
     white: 'white',
+    black: 'black',
 }
 
 export const Theme = createTheme({
@@ -34,12 +37,28 @@ export const Theme = createTheme({
             light: '#a4dddf',
         },
         secondary: {
-            main: '#f8333c',
-            ontrastText: '#d01c1c',
+            main: defaultColors.secondary[900],
+            dark: defaultColors.primary[100],
+            contrastText: defaultColors.black,
+            light: defaultColors.black,
         },
     },
     components: {
         // Name of the component
+        MuiPaper: {
+            // Name of the rule
+            styleOverrides: {
+                root: {
+                    backgroundColor: 'white',
+                    border: defaultBehavior.border.default
+                        + defaultColors.lightgrey,
+                    borderRadius: '1rem',
+                    color: defaultColors.black, // text color
+                    boxShadow: defaultBehavior.boxShadowSize['default'] +
+                        'lightgrey',
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 // Name of the slot

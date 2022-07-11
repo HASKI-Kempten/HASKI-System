@@ -67,7 +67,7 @@ function LearningElementDialog({ open, handler }) {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => handler(false)}>Close</Button>
+                <Button onClick={() => handler(false)}>Schließen</Button>
             </DialogActions>
         </Dialog >
     )

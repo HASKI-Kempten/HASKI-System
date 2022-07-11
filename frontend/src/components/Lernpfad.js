@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { Paper, Button } from '@mui/material';
 import MenuAppBar from './MenuBar';
+import ChangeUserDialog from './Dialogs/ChangeUserDialog';
 
 function Flow({ elements }) {
 
@@ -118,10 +119,20 @@ function noop() { }
 
 const About = () => {
 
+	const [open, setOpen] = React.useState(false);
+	const [user, setUser] = React.useState("David Fischer");
 
+	const handleChangeUserDialogClick = (state) => {
+		setOpen(state);
+	};
+
+	const handleChangeUser = (username) => {
+		setUser(username);
+	};
 	return (
 		<>
-			<MenuAppBar />
+			<MenuAppBar handler={handleChangeUserDialogClick} user={user} />
+			<ChangeUserDialog handler={handleChangeUserDialogClick} open={open} hanlderUser={handleChangeUser} />
 
 			<Stack spacing={2} sx={{ height: '100%' }}>
 				{/* Flow */}

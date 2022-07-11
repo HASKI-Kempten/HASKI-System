@@ -6,6 +6,8 @@ import 'swiper/css';
 import MenuAppBar from './MenuBar';
 import ChangeUserDialog from './Dialogs/ChangeUserDialog';
 import React from 'react';
+import { Card, Grid, Paper, Stack } from '@mui/material';
+import DashElement from './DashElement';
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -19,11 +21,38 @@ const Home = () => {
     setUser(username);
   };
 
+
+
   return (
     <>
       <MenuAppBar handler={handleChangeUserDialogClick} user={user} />
       <ChangeUserDialog handler={handleChangeUserDialogClick} open={open} hanlderUser={handleChangeUser} />
-      <div className="App">
+      <Grid container spacing={2} marginTop="1rem" sx={{ height: '100%' }}>
+        <Grid item xs={10} md={8}>
+          <Stack container direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <DashElement link="/learningPath" heading="zuletzt" title="Halstaed C++ Übung" subtitle="Qualitätssicherung durch Metriken" buttonText="weiter" text="1/10 bearbeitet" />
+              </Grid>
+              <Grid item xs={6}>
+                <DashElement link="/learningPath" heading="vorgeschlagen" title="Metriken 1" subtitle="Qualitätssicherung durch Metriken" buttonText="weiter" text="4/10 bearbeitet" />
+              </Grid>
+            </Grid>
+            <Card>
+              lol
+            </Card>
+          </Stack>
+        </Grid>
+        <Grid item xs={2} md={4}>
+          <Paper sx={{ height: '100%' }}>
+            <img src={logo} className="App-logo" alt="logo" />
+          </Paper>
+        </Grid>
+      </Grid>
+      {/* <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
@@ -48,7 +77,7 @@ const Home = () => {
             </li>
           </ul>
         </header>
-      </div>
+      </div> */}
     </>
   );
 };

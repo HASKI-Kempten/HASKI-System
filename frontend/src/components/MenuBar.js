@@ -48,14 +48,14 @@ export default function MenuAppBar({ handler, user }) {
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup> */}
-        <AppBar position="static">
+        <AppBar position="static" color='secondary'>
           <Toolbar>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2, color: 'white' }}
+              sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
@@ -67,15 +67,15 @@ export default function MenuAppBar({ handler, user }) {
             >
               <Grid item>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  <div role="presentation" sx={{ color: "white" }} >
-                    <Breadcrumbs aria-label="breadcrumb" color="white">
+                  <div role="presentation" >
+                    <Breadcrumbs aria-label="breadcrumb" color="inherit">
                       <MLink
                         underline="hover"
                         sx={{ display: 'flex', alignItems: 'center' }}
                         color="inherit"
                         href="/"
                       >
-                        <HomeIcon sx={{ mr: 0.5, color: 'white' }} fontSize="inherit" />
+                        <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                         Dashboard
                       </MLink>
                       <MLink
@@ -111,7 +111,7 @@ export default function MenuAppBar({ handler, user }) {
                     justifyContent="flex-end"
                     alignItems="center">
                     <Grid item>
-                      <Typography sx={{ color: "white" }}>{user}</Typography>
+                      <Typography >{user}</Typography>
                     </Grid>
                     <Grid item>
                       <IconButton
@@ -121,7 +121,6 @@ export default function MenuAppBar({ handler, user }) {
                         aria-haspopup="true"
                         onClick={handleMenu}
                         color="inherit"
-                        sx={{ color: "white" }}
                       >
                         <AccountCircle />
                       </IconButton>

@@ -106,9 +106,9 @@ export const ThemePresentation = () => {
                 </Typography>
                 <LinearProgress />
                 <Typography marginTop={5} variant="h4" component="div" gutterBottom>
-                    Stuff und so
+                    Custom UI Elements
                 </Typography>
-                <ButtonNode data={{ label: 'Lol' }} />
+                <ButtonNode data={{ label: 'Element' }} />
             </Container>
         </>
     );

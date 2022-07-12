@@ -5,7 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import { Link } from "react-router-dom";
 
 const bull = (
@@ -19,31 +19,30 @@ const bull = (
 
 export default function DashElement({ heading, title, subtitle, text, buttonText, link }) {
     return (
-        <Card sx={{ minWidth: 275, minHeight: 150, height: '100%' }}>
+        <Card sx={{ height: '100%' }}>
             <CardContent>
-                <Stack
+                <Grid columnSpacing={{ xs: 1, sm: 2, md: 3 }} container
                     direction="row"
                     justifyContent="space-between"
-                    alignItems="center"
-                    spacing={2}
-                >
-                    <Stack>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            {heading}
-                        </Typography>
-                        <Typography variant="h5" component="div">
-                            {title}
-                        </Typography>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            {subtitle}
-                        </Typography>
-                        <Typography variant="body2">
-                            {text}
-                        </Typography>
-                    </Stack>
+                    alignItems="center">
+                    <Grid item xs={12} md={6}>
+                        <Stack>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {heading}
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                                {title}
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                {subtitle}
+                            </Typography>
+                            <Typography variant="body2">
+                                {text}
+                            </Typography>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
 
-
-                    <CardActions>
                         <Link to={link} style={{ 'textDecoration': 'none' }}>
                             <Button variant="contained" size="small">
                                 <Typography >
@@ -51,8 +50,8 @@ export default function DashElement({ heading, title, subtitle, text, buttonText
                                 </Typography>
                             </Button>
                         </Link>
-                    </CardActions>
-                </Stack>
+                    </Grid>
+                </Grid>
             </CardContent>
 
 

@@ -10,6 +10,7 @@ import DashElement from './DashElement';
 import CustomBarChart from './Charts/CustomBarChart';
 import { Box } from '@mui/system';
 import CustomizedInput from './Dialogs/CustomInput';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -49,19 +50,27 @@ const Home = () => {
                   <Typography variant="h6" gutterBottom component="div">
                     Laut dem ILS Fragebogen sind die Dimensionen Deines Lernstils:
                   </Typography>
-                  <Box sx={{padding: '1rem'}}>
-                  <CustomBarChart />
+                  <Box sx={{ padding: '1rem' }}>
+                    <CustomBarChart />
                   </Box>
+                  <Typography variant="h6" gutterBottom component="div">
+                    Dein Ergebnis des LIST Fragebogens:
+                  </Typography>
                 </Box>
               </Card>
               <Card sx={{ height: '100%', width: '100%', marginTop: '2rem' }}>
                 <Box sx={{ padding: '1rem' }}>
-                <Typography variant="h6" gutterBottom component="div">
-                  Einige UI Elemente wurden zusammengestellt, um einen Überblick über das Design zu bekommen. Das Design basiert auf Googles Material Design, und wurde für mehr individualität bezüglich Farbe und Form angepasst. Um die spielerische Optik zu bekommen, wurde sich an Educational Apps und Lernplattformen orientiert. Mehr dazu im Design Dokument.
-                </Typography>
-                <Button variant="contained">
-                  Demo
-                </Button>
+                  <Typography variant="h6" gutterBottom component="div">
+                    Einige UI Elemente wurden zusammengestellt, um einen Überblick über das Design zu bekommen. Das Design basiert auf Googles Material Design, und wurde für mehr individualität bezüglich Farbe und Form angepasst. Um die spielerische Optik zu bekommen, wurde sich an Educational Apps und Lernplattformen orientiert. Mehr dazu im Design Dokument.
+                  </Typography>
+
+                  <Link to="/theme" style={{ 'textDecoration': 'none' }}>
+                    <Button variant="contained" size="small">
+                      <Typography >
+                        Demo
+                      </Typography>
+                    </Button>
+                  </Link>
                 </Box>
               </Card>
             </Stack>
@@ -91,32 +100,6 @@ const Home = () => {
             </Card>
           </Grid>
         </Grid>
-        {/* <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Welcome to the HASKI project!
-          </p>
-          <br />
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/courseDashboard">Course Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/quiz">Finde deinen Lerntypen heraus</Link>
-            </li>
-            <li>
-              <Link to="/learningPath">Lernpfad ansehen</Link>
-            </li>
-            <li>
-              <Link to="/theme">Theme presentation</Link>
-            </li>
-          </ul>
-        </header>
-      </div> */}
       </Stack>
     </>
   );

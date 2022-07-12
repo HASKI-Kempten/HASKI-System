@@ -19,7 +19,7 @@ const bull = (
 
 export default function DashElement({ heading, title, subtitle, text, buttonText, link }) {
     return (
-        <Card sx={{ minWidth: 275, minHeight: 150 }}>
+        <Card sx={{ minWidth: 275, minHeight: 150, height: '100%' }}>
             <CardContent>
                 <Stack
                     direction="row"

@@ -66,7 +66,7 @@ export default function MenuAppBar({ handler, user }) {
               alignItems="center"
             >
               <Grid item>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                   <div role="presentation" >
                     <Breadcrumbs aria-label="breadcrumb" color="inherit">
                       <MLink

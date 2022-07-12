@@ -9,52 +9,82 @@ with open('schema.sql') as f:
 cur = connection.cursor()
 
 # Initialize Elements 
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 Kurzüberblick', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'overview', '• Definition von Metrik•Unterschiedliche Verwendungszwecke von Metriken• Verschiedene Arten von Metriken und Einordnung von einigen Metriken ', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 Kurzuberblick', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', '- Definition von Metrik -Unterschiedliche Verwendungszwecke von Metriken -Verschiedene Arten von Metriken und Einordnung von einigen Metriken ')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 Beispiel & Lektion', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Konkretes Beispiel fuer eine Anwendung der Metrik:Du arbeitest in einer Softwarefirma und bekommst den Code eines Vorgaengers fuer einen Chatbot. Um pruefen zu koennen ob der Code brauchbar ist verwendest du verschiedene Metriken, wie zum Beispiel Halstead, Lines of Code oder Strukturmetriken. Bei der McCabe Metrik fallen dir mehrere Stellen mit totem Code auf. Du besserst diese Stellen aus und kannst ab dem naechsten Tag stolz behaupten besser als dein Vorgaenger zu sein, da du Metriken beherrschst.')
+            )              
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 uebung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'HASKI-System/backend/pictures/wortsuche.png')
+            )   
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 Zusatzliteratur', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','Inhalt zusatzliteratur')
+            )     
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 Selbsteinschaetzungstest', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'HASKI-System//backend/pictures/Ziehen.png')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 Zusammenfassung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Eine Metrik wird folgendermassen definiert Eine Metrik ist im Software Engineering eine quantifizierte Aussage ueber ein Artefakt, einen Prozess oder ein Projekt. Dabei bedeutet quantifizierte Aussage, dass eine Information in Zahlenform vorliegt und so verglichen werden kann.\n'+
+            'Eine Metrik hilft dabei: \n'+
+            '- Probleme zu identifizieren\n'+
+            '- Neue Methoden zu testen\n'+
+            '- Produkte zu beurteilen-\n'+
+            '- Auftraggeber zu informieren (Transparenz)-\n'+
+            '- Komplexitaet, Qualitaet und Einhaltung des Standards zu kontrollieren-\n'+
+            '- Abschaetzung des Aufwands, der Kosten und der Zeit-\n'+            
+            '- Verfolgung des Aufwands, der Kosten und der Zeit\n'+ 
+            'Metriken koennen in folgende Arten eingeteilt werden: Produkt-, Prozess-, und Projektmasse. Diese Masse werden durch verschiedene Methoden gemessen.'
+             )
+            )       
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1 uebung', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
+            )   
+#### mock other
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory, interactive', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 11, 3, 'visual, auditory', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory, interactive', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Word Search', '1', 1656330943, 'Informatik I', 15, 3, 'visual, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 11, 3, 'visual, auditory', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Definition Metriken', '0', 1656330943, 'Informatik I', 15, 3, 'visual, text', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Word Search', '1', 1656330943, 'Informatik I', 15, 3, 'visual, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Text Wozu Metriken', '0', 1656330943, 'Informatik I', 15, 3, 'visual, text', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Definition Metriken', '0', 1656330943, 'Informatik I', 15, 3, 'visual, text', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Arten von Metriken', '0', 1656330943, 'Informatik I', 5, 3, 'visual, text, image', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Text Wozu Metriken', '0', 1656330943, 'Informatik I', 15, 3, 'visual, text', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Eigenschaften von Metriken', '0', 1656330943, 'Informatik I', 7, 3, 'visual, iamge', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Arten von Metriken', '0', 1656330943, 'Informatik I', 5, 3, 'visual, text, image', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Schiebespiel Metriken zuordnen', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactiv', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Eigenschaften von Metriken', '0', 1656330943, 'Informatik I', 7, 3, 'visual, iamge', 'ppt', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Tueroeffner Bestimmte Metriken', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Schiebespiel Metriken zuordnen', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactiv', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Haltstead Metrik C++', '0', 1656330943, 'Informatik I', 8, 3, 'visual, coding', 'quiz', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Tueroeffner Bestimmte Metriken', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
-cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Haltstead Metrik C++ Aufgabe', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'upload', 'Lorem Ipsum', 'Lorem Ipsum 2')
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Haltstead Metrik C++', '0', 1656330943, 'Informatik I', 8, 3, 'visual, coding', 'quiz', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')            
+            )            
+cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ('Haltstead Metrik C++ Aufgabe', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'upload', 'Lorem Ipsum', 'Lorem Ipsum 2', 'content successful')
             )
+ 
 
 #Initialize Modules
 cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
-            ('Informatik I', 'IT-1234', 1)
+            ('Metrikne I', 'IT-1234', 1)
             )
 cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
             ('Einfuehrung in die Programmierung', 'IT-1478', 2)
@@ -68,17 +98,15 @@ cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
 
 #Initialize Students
 cur.execute("INSERT INTO student (name, semester, style, courseOfStudy) VALUES (?, ?, ?, ?)",
-            ("Max Mustermann", 1, "active, verbal, sensing, gloabl", "Angewandte Informatik")
+            ("Jim Haug", 1, "balanciert, intuitiv, visuell, balanciert", "Angewandte Informatik")
             )
 cur.execute("INSERT INTO student (name, semester, style, courseOfStudy) VALUES (?, ?, ?, ?)",
-            ("Maria Musterfrau", 2, "active, visual, sensing, sequential", "Angewandte Informatik")
+            ("Marc Normann", 1, "balanciert, balanciert, visuell, global", "Angewandte Informatik")
             )
 cur.execute("INSERT INTO student (name, semester, style, courseOfStudy) VALUES (?, ?, ?, ?)",
-            ("Olaf Scholz", 5, "reflective, visual, intuitive, gloabl", "Angewandte Schlafforschung")
+            ("David Fischer", 1, "active, intuitiv, visuell, balanciert", "Angewandte Informatik")
             )
-cur.execute("INSERT INTO student (name, semester, style, courseOfStudy) VALUES (?, ?, ?, ?)",
-            ("Das Kruemelmonster", 1, "reflective, verbal, sensing, sequential", "Ernaehrungswissenschaften")
-            )
+
 
 #Initialize StudentModules
 cur.execute("INSERT INTO studentModule (studentId, moduleId) VALUES (?, ?)",
@@ -88,81 +116,102 @@ cur.execute("INSERT INTO studentModule (studentId, moduleId) VALUES (?, ?)",
             (2,1)
             )
 cur.execute("INSERT INTO studentModule (studentId, moduleId) VALUES (?, ?)",
-            (2,2)
-            )
-cur.execute("INSERT INTO studentModule (studentId, moduleId) VALUES (?, ?)",
-            (3,3)
-            )
-cur.execute("INSERT INTO studentModule (studentId, moduleId) VALUES (?, ?)",
-            (4,4)
+            (3,1)
             )
 
 #Initalize learning Paths
 cur.execute("INSERT INTO learningPath (moduleId, module) VALUES (?, ?)",
-            (1, 'Informatik I')
+            (1, 'Metriken I')
             )
 
 #Initialize Elements for Learning Paths
 cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (1, 1, '1.1')
+            (1, 1, '1')
             )
 cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (2, 1, '2.1')
+            (2, 1, '2')
             )
 cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (3, 1, '3.1')
+            (3, 1, '3')
             )
 cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (4, 1, '4.1')
+            (4, 1, '4')
             )
 cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (5, 1, '5.1')
+            (5, 1, '5')
             )
 cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (6, 1, '6.1')
+            (6, 1, '6')
             )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (7, 1, '7.1')
-            )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (8, 1, '8.1')
-            )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (9, 1, '9.1')
-            )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (10, 1, '10.1')
-            )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (11, 1, '11.1')
-            )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (12, 1, '12.1')
-            )
-cur.execute("INSERT INTO elementMetaPath (elementId, learningPath, position) VALUES (?, ?, ?)",
-            (13, 1, '13.1')
-            )
+
 
 #Initialize Learning Ways
 cur.execute("INSERT INTO learningWay (module, moduleId, studentId, recommendedElement) VALUES (?, ?, ?, ?)",
-            ('Informatik I', 1, 1, 1)
+            ('Metriken I', 1, 1, 1)
+            )           
+cur.execute("INSERT INTO learningWay (module, moduleId, studentId, recommendedElement) VALUES (?, ?, ?, ?)",
+            ('Metriken I', 1, 2, 1)
             )
 cur.execute("INSERT INTO learningWay (module, moduleId, studentId, recommendedElement) VALUES (?, ?, ?, ?)",
-            ('Einfuehrung in die Programmierung', 2, 1, 12)
-            )
-cur.execute("INSERT INTO learningWay (module, moduleId, studentId, recommendedElement) VALUES (?, ?, ?, ?)",
-            ('Informatik I', 1, 2, 1)
+            ('Metriken I', 1, 3, 1)
             )
 
 #Initialize Learning Way Elements
 cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
-            (1, True, 1656330943, "2.0", "1.1", 1)
+            (1, False, 1656330943, "", "1", 1)
             )
 cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
-            (2, True, 1656330943, "1.3", "2.1", 1)
+            (2, False, 1656330943, "", "2", 1)
             )
-cur.execute("INSERT INTO learningWayElement (elementId, done, position, learningWayId) VALUES (?, ?, ?, ?)",
-            (3, False, "3.1", 1)
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (3, False, 1656330943, "", "3", 1)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (4, False, 1656330943, "", "4", 1)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (5, False, 1656330943, "", "5", 1)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (6, False, 1656330943, "", "6", 1)
+            )
+
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (1, False, 1656330943, "", "1", 2)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (2, False, 1656330943, "", "2", 2)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (6, False, 1656330943, "", "3", 2)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (5, False, 1656330943, "", "4", 2)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (3, False, 1656330943, "", "5", 2)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (4, False, 1656330943, "", "6", 2)
+            )
+
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (1, False, 1656330943, "", "1", 3)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (2, False, 1656330943, "", "2", 3)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (3, False, 1656330943, "", "3", 3)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (5, False, 1656330943, "", "4", 3)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (4, False, 1656330943, "", "5", 3)
+            )
+cur.execute("INSERT INTO learningWayElement (elementId, done, doneAt, evaluation, position, learningWayId) VALUES (?, ?, ?, ?, ?, ?)",
+            (6, False, 1656330943, "", "6", 3)
             )
 
 connection.commit()

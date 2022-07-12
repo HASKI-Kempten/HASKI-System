@@ -21,7 +21,7 @@ def get_elements():
     elements = {}
     elements_new = []
     for result in cursor.execute('SELECT * FROM element').fetchall():
-        element = Element(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9], result[10])
+        element = Element(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9], result[10], result[11])
         elements_new.append(element.__dict__)
     cursor.close()
     elements['elements'] = elements_new
@@ -35,12 +35,12 @@ def create_element():
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
     cursor.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (params['name'].strip(), '0', params['date'], params['topic'].strip(), 0, params['semester'], params['style'].strip(), params['type'].strip(), 'Lorem Ipsum', 'Lorem Ipsum')
+            (params['name'].strip(), '0', params['date'], params['topic'].strip(), 0, params['semester'], params['style'].strip(), params['type'].strip(), 'Lorem Ipsum', 'Lorem Ipsum','content')
             )
     cursor.commit()
     id = cursor.execute("SELECT MAX(id) FROM element").fetchone()[0]
     result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
-    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10])
+    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10], result[0][11])
     cursor.close()
     return jsonify(element.__dict__), 201
 
@@ -49,7 +49,7 @@ def get_element_by_id(id):
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
     result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
-    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10])
+    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10], result[0][11])
     cursor.close()
     return jsonify(element.__dict__)
 
@@ -61,7 +61,7 @@ def update_element(id):
     cursor.execute("UPDATE element SET name=? WHERE id=?",(params['name'], params['id']))
     cursor.commit()
     result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
-    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10])
+    element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10], result[0][11])
     cursor.close()
     return jsonify(element.__dict__)
 

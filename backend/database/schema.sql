@@ -11,7 +11,8 @@ CREATE TABLE element(
     style TEXT NOT NULL,
     type TEXT NOT NULL,
     proLIST TEXT NOT NULL,
-    contraLIST TEXT NOT NULL
+    contraLIST TEXT NOT NULL,
+    content TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS module;

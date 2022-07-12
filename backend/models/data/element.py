@@ -1,5 +1,5 @@
 class Element:
-    def __init__(self, id, name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST):
+    def __init__(self, id, name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content):
         self.id = id
         self.name = name
         self.difficulty = difficulty
@@ -11,3 +11,5 @@ class Element:
         self.type = type
         self.proLIST = proLIST
         self.contraLIST = contraLIST
+        self.content = content
+        

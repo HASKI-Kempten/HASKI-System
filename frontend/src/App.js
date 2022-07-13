@@ -17,7 +17,7 @@ import ThemePresentation from "./components/ThemePresentation";
 function App() {
 	return (
 		<>
-			<meta name="viewport" content="initial-scale=1, width=device-width" />
+			<meta name="viewport" content="initial-scale=1, width=device-width, height=device-height" />
 			<ThemeProvider theme={Theme}>
 				<Router>
 					<Routes>

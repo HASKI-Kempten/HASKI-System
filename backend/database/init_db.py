@@ -13,16 +13,16 @@ cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averag
             ('Metriken Teil 1 Kurzuberblick', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', '- Definition von Metrik -Unterschiedliche Verwendungszwecke von Metriken -Verschiedene Arten von Metriken und Einordnung von einigen Metriken ')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 Beispiel & Lektion', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Konkretes Beispiel fuer eine Anwendung der Metrik:Du arbeitest in einer Softwarefirma und bekommst den Code eines Vorgaengers fuer einen Chatbot. Um pruefen zu koennen ob der Code brauchbar ist verwendest du verschiedene Metriken, wie zum Beispiel Halstead, Lines of Code oder Strukturmetriken. Bei der McCabe Metrik fallen dir mehrere Stellen mit totem Code auf. Du besserst diese Stellen aus und kannst ab dem naechsten Tag stolz behaupten besser als dein Vorgaenger zu sein, da du Metriken beherrschst.')
+            ('Metriken Teil 1 Beispiel & Lektion', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'url', 'Lorem Ipsum', 'Lorem Ipsum 2','https://www.youtube.com/embed/kXUAFFOTt-k')
             )              
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 uebung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'HASKI-System/backend/pictures/wortsuche.png')
+            ('Metriken Teil 1 uebung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'wortsuche.png')
             )   
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Metriken Teil 1 Zusatzliteratur', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','Inhalt zusatzliteratur')
             )     
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 Selbsteinschaetzungstest', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'HASKI-System//backend/pictures/Ziehen.png')
+            ('Metriken Teil 1 Selbsteinschaetzungstest', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Ziehen.png')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Metriken Teil 1 Zusammenfassung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Eine Metrik wird folgendermassen definiert Eine Metrik ist im Software Engineering eine quantifizierte Aussage ueber ein Artefakt, einen Prozess oder ein Projekt. Dabei bedeutet quantifizierte Aussage, dass eine Information in Zahlenform vorliegt und so verglichen werden kann.\n'+
@@ -45,13 +45,13 @@ cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averag
             ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
+            ('Metriken Teil 1', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory', 'url', 'Lorem Ipsum', 'Lorem Ipsum 2','https://www.youtube.com/embed/kXUAFFOTt-k')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory, interactive', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
+            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 10, 3, 'visual, auditory, interactive', 'url', 'Lorem Ipsum', 'Lorem Ipsum 2','https://www.youtube.com/embed/kXUAFFOTt-k')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 11, 3, 'visual, auditory', 'url:https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
+            ('Metriken Teil 2', '0', 1656330943, 'Informatik I', 11, 3, 'visual, auditory', 'url', 'Lorem Ipsum', 'Lorem Ipsum 2','https://www.youtube.com/embed/kXUAFFOTt-k')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Word Search', '1', 1656330943, 'Informatik I', 15, 3, 'visual, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')

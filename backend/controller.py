@@ -51,7 +51,9 @@ def get_element_by_id(id):
     result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
     element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10], result[0][11])
     cursor.close()
-    return jsonify(element.__dict__)
+    response = jsonify(element.__dict__)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/elements/<int:id>', methods=['PUT'])
 def update_element(id):
@@ -246,7 +248,9 @@ def get_learning_way_for_student(studentId,moduleId,learningWayId):
         elements_new.append(element.__dict__)
     learning_way = LearningWay(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], elements_new)
     cursor.close()
-    return jsonify(learning_way.__dict__)
+    response = jsonify(learning_way.__dict__)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 #Modules
 @app.route('/modules')

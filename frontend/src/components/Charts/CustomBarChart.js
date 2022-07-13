@@ -91,7 +91,7 @@ export default function CustomBarChart() {
                         <Tooltip />
                         <Legend />
                         <ReferenceLine y={0} stroke="#000" />
-                        <Bar name="LIST" dataKey="pv" fill="#8884d8" />
+                        <Bar name="ILS" dataKey="pv" fill="#8884d8" />
                         <Bar name="KI" dataKey="uv" fill="#82ca9d" />
                         <Bar name="Übungen" dataKey="amt" fill="#30588e" />
                   </BarChart>

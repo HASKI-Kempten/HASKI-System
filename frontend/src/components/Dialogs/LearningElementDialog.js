@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 
-function LearningElementDialog({ open, handler }) {
+function LearningElementDialog({ open, handler, data }) {
     const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState('sm');
 
@@ -35,17 +35,20 @@ function LearningElementDialog({ open, handler }) {
             open={open}
             onClose={() => handler(false)}
         >
-            <DialogTitle>Metriken 1</DialogTitle>
+            <DialogTitle>{data.label}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <iframe width="560" height="315"
-                        src="https://www.youtube.com/embed/kXUAFFOTt-k"
-                        title="Georg Video"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen>
+                    {(data.type === 'url') && (
+                        <iframe width="560" height="315"
+                            src={data.content}
+                            title="Georg Video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen>
 
-                    </iframe>
+                        </iframe>)}
+                    {(data.type === 'Picture') && (
+                        <img src={process.env.PUBLIC_URL + '/' + data.content} alt="logo" />)}
                 </DialogContentText>
                 <Box
                     noValidate

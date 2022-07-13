@@ -15,7 +15,16 @@ import { Paper, Button } from '@mui/material';
 import MenuAppBar from './MenuBar';
 import ChangeUserDialog from './Dialogs/ChangeUserDialog';
 
-function Flow({ elements }) {
+
+function getWindowDimensions() {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+		width,
+		height
+	};
+}
+
+function Flow({ user }) {
 
 	const backendPath = process.env.REACT_APP_BACKENDHOST || 'http://localhost:5000';
 
@@ -25,6 +34,7 @@ function Flow({ elements }) {
 
 	const [nodes, setNodes] = useState();
 	const [edges, setEdges] = useState();
+	const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
 	const onNodesChange = useCallback(
 		(changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -44,56 +54,82 @@ function Flow({ elements }) {
 
 	const handleTransform = useCallback(
 		() => {
-			setViewport({ x: 300, y: -400, zoom: 1.2 }, { duration: 800 });
+			setViewport({ x: getWindowDimensions().width / 3, y: getWindowDimensions().height / 10, zoom: 1.2 }, { duration: 800 });
 		},
 		[setViewport]
 	);
 
 	useEffect(() => {
+		let userId = '3';
+		// dirty nach user switchen
+		switch (user) {
+			case "Jim Haug":
+				userId = '1';
+				break;
 
-		fetch(backendPath + '/elements').then(res => res.json()).then(data => {
+			case "Marc Normann":
+				userId = '2';
+				break;
 
-			setNodes(data.elements.map((element, i, arr) => {
-				const type = i === 0 ? 'special' : i === arr.length - 1 ? 'output' : 'special';
-				return {
-					id: (element.id).toString(),
-					type: type,
-					// sourcePosition: 'right',
-					// targetPosition: 'left',
-					data: {
-						label: element.name,
-						difficulty: element.difficulty,
-						creationDate: element.creationDate,
-						module: element.module,
-						averageDuration: element.averageDuration,
-						semester: element.semester,
-						style: element.style,
-						type: element.type,
-						proLIST: element.proLIST,
-						contraLIST: element.contraLIST,
+			case "David Fischer":
+				userId = '3';
+				break;
+			default:
+				break;
+		}
+		fetch(backendPath + '/learningWay/' + userId + '/' + '1' + '/' + userId).then(res => res.json()).then(data => {
+			// fetch element from learningway
+			// for each in data.elements do that
+			Promise.all(data.elements.map((learningWayElement, i, arr) => {
+				return fetch(backendPath + '/elements/' + learningWayElement.elementId).then(res => res.json())
+			})).then(
+				(elements) => {
+					setNodes(elements.map((element, i, arr) => {
+						const type = i === 0 ? 'special' : 'special';
+						return {
+							id: (i).toString(),
+							type: type,
+							// sourcePosition: 'right',
+							// targetPosition: 'left',
+							data: {
+								label: element.name,
+								difficulty: element.difficulty,
+								creationDate: element.creationDate,
+								module: element.module,
+								averageDuration: element.averageDuration,
+								semester: element.semester,
+								style: element.style,
+								type: element.type,
+								proLIST: element.proLIST,
+								contraLIST: element.contraLIST,
+								content: element.content,
+								id: i.toString(),
 
-					},
-					// position: { x: element.id * 250, y: 100 },
-					position: { x: 250, y: element.id * 400 },
+							},
+							// position: { x: element.id * 250, y: 100 },
+							position: { x: 10, y: i * 400 },
+						}
+					}));
+
+					setEdges(elements.map((element, i, arr) => {
+						return {
+							id: `e${element.id}-${element.id + 1}`,
+							type: 'default',
+							source: i.toString(),
+							target: (i + 1).toString(),
+							animated: true,
+							markerEnd: { type: 'arrow' },
+						}
+					}));
+
+					handleTransform();
 				}
-			}));
+			)
 
-			setEdges(data.elements.map((element, i, arr) => {
-				return {
-					id: `e${element.id}-${element.id + 1}`,
-					type: 'default',
-					source: element.id.toString(),
-					target: (element.id + 1).toString(),
-					animated: true,
-					markerEnd: { type: 'arrow' },
-				}
-			}));
-
-			handleTransform();
 
 		}
 		);
-	}, [handleTransform, backendPath]);
+	}, [handleTransform, backendPath, user]);
 
 
 
@@ -109,7 +145,7 @@ function Flow({ elements }) {
 
 			fitView>
 			<div>
-				<CustomControls />
+				<CustomControls handleTransform={handleTransform} />
 				{/* <Background /> */}
 			</div>
 		</ReactFlow>
@@ -136,7 +172,7 @@ const About = () => {
 			<ChangeUserDialog handler={handleChangeUserDialogClick} open={open} hanlderUser={handleChangeUser} />
 			{/* Flow */}
 			<ReactFlowProvider>
-				<Flow />
+				<Flow user={user} />
 			</ReactFlowProvider>
 		</Stack>
 

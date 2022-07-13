@@ -23,7 +23,7 @@ const round_button_a = {
     'textAlign': 'center',
     'fontFamily': defaultFonts.default,
     'fontWeight': 'bold',
-    'fontSize': '1.7rem',
+    'fontSize': '1.3rem',
     color: 'white',
     'textDecoration': 'none',
 }
@@ -48,7 +48,7 @@ const round_button_circle = {
         boxShadow: 'unset'
     }
 }
-function ButtonNode(props) {
+function ButtonNode({ data }) {
     const [open, setOpen] = useState(false);
     const handleDialogClick = (state) => {
         setOpen(state);
@@ -59,7 +59,7 @@ function ButtonNode(props) {
                 <Stack sx={round_button_circle} direction="row" justifyContent="center">
                     <Stack sx={stack} justifyContent="center" alignItems="center">
                         <p style={round_button_a}>
-                            {props.data.label}
+                            {data.label}
                         </p>
                     </Stack>
 
@@ -69,7 +69,7 @@ function ButtonNode(props) {
                 {props.data.label}
             </Typography> */}
         </Stack>
-        <LearningElementDialog handler={handleDialogClick} open={open} />
+        <LearningElementDialog handler={handleDialogClick} data={data} open={open} />
     </>)
 }
 

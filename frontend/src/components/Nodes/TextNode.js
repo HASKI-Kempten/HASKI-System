@@ -73,7 +73,7 @@ const bottom_text_right = {
 }
 
 
-function OverviewNode(props) {
+function TextNode(props) {
 
     const { setViewport, zoomIn, zoomOut } = useReactFlow();
 
@@ -100,28 +100,12 @@ function OverviewNode(props) {
                     <Divider orientation="vertical" variant="middle" flexItem />
                     <h4>~{props.data.averageDuration} min.</h4>
                 </Stack>
-                <Grid container
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <Grid item xs={8}>
-                        <Typography variant="body" component="div" gutterBottom>
-                            {props.data.content}
-                        </Typography>
-                    </Grid>
-                    <Grid container item xs={4} justifyContent="center">
-                        <Grid item
-                            justifyContent="center"
-                            alignItems="center">
-                            <Button onClick={handleTransform} variant="contained" size="large">
-                                Continue
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                <Typography variant="body" component="div" gutterBottom>
+                    {props.data.content}
+                </Typography>
             </Stack>
         </Card>
     );
 }
 
-export { OverviewNode };
+export { TextNode };

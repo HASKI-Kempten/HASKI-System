@@ -2,6 +2,7 @@ import { Button, Card, Divider, Grid, Stack, Typography } from '@mui/material';
 import { Handle, Position } from 'react-flow-renderer';
 import ButtonNode from './ButtonNode';
 import { OverviewNode } from './OverviewNode';
+import { TextNode } from './TextNode';
 import { UMLNode } from './UMLNode';
 
 const color_3 = '#FF924C'
@@ -15,13 +16,32 @@ function BasicNode({ data }) {
         difficulty: difficulty,
     }
     switch (data.type) {
-        case 'overview':
+        case 'Text':
+            if (data.id === "0")
+                return (<>
+                    <Handle type="target" position={Position.Top} />
+                    <OverviewNode data={data} options={options} />
+                    <Handle type="source" position={Position.Bottom} id="a" />
+                </>)
+            else
+                return (<>
+                    <Handle type="target" position={Position.Top} />
+                    <TextNode data={data} options={options} />
+                    <Handle type="source" position={Position.Bottom} id="a" />
+                </>)
+        case 'h5p':
             return (<>
                 <Handle type="target" position={Position.Top} />
-                <OverviewNode data={data} options={options} />
+                <ButtonNode data={data} options={options} />
                 <Handle type="source" position={Position.Bottom} id="a" />
             </>)
-        case 'h5p':
+        case 'url':
+            return (<>
+                <Handle type="target" position={Position.Top} />
+                <ButtonNode data={data} options={options} />
+                <Handle type="source" position={Position.Bottom} id="a" />
+            </>)
+        case 'Picture':
             return (<>
                 <Handle type="target" position={Position.Top} />
                 <ButtonNode data={data} options={options} />

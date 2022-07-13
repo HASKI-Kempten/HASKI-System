@@ -130,17 +130,15 @@ const About = () => {
 		setUser(username);
 	};
 	return (
-		<>
+
+		<Stack sx={{ height: '100%' }}>
 			<MenuAppBar handler={handleChangeUserDialogClick} user={user} />
 			<ChangeUserDialog handler={handleChangeUserDialogClick} open={open} hanlderUser={handleChangeUser} />
-
-			<Stack spacing={2} sx={{ height: '100%' }}>
-				{/* Flow */}
-				<ReactFlowProvider>
-					<Flow />
-				</ReactFlowProvider>
-			</Stack>
-		</>
+			{/* Flow */}
+			<ReactFlowProvider>
+				<Flow />
+			</ReactFlowProvider>
+		</Stack>
 
 	);
 };

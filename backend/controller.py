@@ -1,5 +1,6 @@
 import re
 from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 from pytest import param
 from database.db_connector import DbConnector
 from models.data.element import Element
@@ -12,9 +13,11 @@ from models.data.student import Student
 from models.data.student_module import StudentModule
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 #Elements
 @app.route('/elements')
+@cross_origin(supports_credentials=True)
 def get_elements():
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -30,6 +33,7 @@ def get_elements():
     return response
 
 @app.route('/elements', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def create_element():
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -45,6 +49,7 @@ def create_element():
     return jsonify(element.__dict__), 201
 
 @app.route('/elements/<int:id>')
+@cross_origin(supports_credentials=True)
 def get_element_by_id(id):
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -56,6 +61,7 @@ def get_element_by_id(id):
     return response
 
 @app.route('/elements/<int:id>', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 def update_element(id):
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -69,6 +75,7 @@ def update_element(id):
 
 #Students
 @app.route('/student')
+@cross_origin(supports_credentials=True)
 def get_students():
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -86,6 +93,7 @@ def get_students():
     return jsonify(students)
 
 @app.route('/student', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def create_student():
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -101,6 +109,7 @@ def create_student():
     return jsonify(student.__dict__), 201
 
 @app.route('/student/<int:studentId>')
+@cross_origin(supports_credentials=True)
 def get_student_by_id(studentId):
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -114,6 +123,7 @@ def get_student_by_id(studentId):
     return jsonify(student.__dict__)
 
 @app.route('/student/<int:studentId>', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 def update_student(studentId):
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -134,6 +144,7 @@ def update_student(studentId):
 
 #Learning Paths
 @app.route('/learningPath/<int:pathId>/<int:moduleId>')
+@cross_origin(supports_credentials=True)
 def get_learning_path_for_student(pathId,moduleId):
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -149,6 +160,7 @@ def get_learning_path_for_student(pathId,moduleId):
     return jsonify(learning_path.__dict__)
 
 @app.route('/learningPath', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def create_learning_Path():
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -173,6 +185,7 @@ def create_learning_Path():
     return jsonify(learning_path.__dict__),201
 
 @app.route('/learningPath/<int:pathId>/<int:moduleId>', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 def update_learning_path(pathId,moduleId):
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -195,6 +208,7 @@ def update_learning_path(pathId,moduleId):
 
 #Learning Ways
 @app.route('/learningWay/<int:studentId>/<int:moduleId>', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def create_learning_way(studentId, moduleId):
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -217,6 +231,7 @@ def create_learning_way(studentId, moduleId):
     return jsonify(learning_way.__dict__),201
 
 @app.route('/learningWay/<int:studentId>/<int:moduleId>/<int:learningWayId>', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 def update_learning_way(studentId,moduleId,learningWayId):
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -236,6 +251,7 @@ def update_learning_way(studentId,moduleId,learningWayId):
     return jsonify(learning_way.__dict__),200
 
 @app.route('/learningWay/<int:studentId>/<int:moduleId>/<int:learningWayId>')
+@cross_origin(supports_credentials=True)
 def get_learning_way_for_student(studentId,moduleId,learningWayId):
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -254,6 +270,7 @@ def get_learning_way_for_student(studentId,moduleId,learningWayId):
 
 #Modules
 @app.route('/modules')
+@cross_origin(supports_credentials=True)
 def get_all_modules():
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -267,6 +284,7 @@ def get_all_modules():
     return jsonify(modules)
 
 @app.route('/modules', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def create_module():
     params = request.get_json()
     conn = DbConnector('database/database.db')
@@ -282,6 +300,7 @@ def create_module():
     return jsonify(module.__dict__), 201
 
 @app.route('/modules/<int:moduleId>')
+@cross_origin(supports_credentials=True)
 def get_module_by_id(moduleId):
     conn = DbConnector('database/database.db')
     cursor = conn.get_db_connection()
@@ -293,6 +312,7 @@ def get_module_by_id(moduleId):
     return jsonify(module.__dict__)
 
 @app.route('/modules/<int:moduleId>', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 def update_module(moduleId):
     params = request.get_json()
     conn = DbConnector('database/database.db')

@@ -28,9 +28,7 @@ def get_elements():
         elements_new.append(element.__dict__)
     cursor.close()
     elements['elements'] = elements_new
-    response = jsonify(elements)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(elements),200
 
 @app.route('/elements', methods=['POST'])
 @cross_origin(supports_credentials=True)
@@ -56,9 +54,7 @@ def get_element_by_id(id):
     result = cursor.execute('SELECT * FROM element WHERE ID=%d' %id).fetchall()
     element = Element(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4],result[0][5],result[0][6],result[0][7],result[0][8],result[0][9], result[0][10], result[0][11])
     cursor.close()
-    response = jsonify(element.__dict__)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return element.__dict__
 
 @app.route('/elements/<int:id>', methods=['PUT'])
 @cross_origin(supports_credentials=True)
@@ -264,9 +260,7 @@ def get_learning_way_for_student(studentId,moduleId,learningWayId):
         elements_new.append(element.__dict__)
     learning_way = LearningWay(result[0][0],result[0][1],result[0][2],result[0][3],result[0][4], elements_new)
     cursor.close()
-    response = jsonify(learning_way.__dict__)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(learning_way.__dict__), 200
 
 #Modules
 @app.route('/modules')

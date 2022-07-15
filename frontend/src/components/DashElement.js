@@ -5,7 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Grid, Stack } from '@mui/material';
+import { CardHeader, Grid, IconButton, Stack, Tooltip } from '@mui/material';
 import { Link } from "react-router-dom";
 
 const bull = (
@@ -20,6 +20,17 @@ const bull = (
 export default function DashElement({ heading, title, subtitle, text, buttonText, link }) {
     return (
         <Card sx={{ height: '100%' }}>
+            <CardHeader
+                action={
+                    <Tooltip title="Wieso wird mir das vorgeschlagen?">
+                        <Button variant="text" sx={{ textTransform: 'lowercase' }}>
+                            i
+                        </Button>
+                    </Tooltip>
+
+                }
+                subheader={heading}
+            />
             <CardContent>
                 <Grid columnSpacing={{ xs: 1, sm: 2, md: 3 }} container
                     direction="row"
@@ -27,9 +38,6 @@ export default function DashElement({ heading, title, subtitle, text, buttonText
                     alignItems="center">
                     <Grid item xs={12} md={6}>
                         <Stack>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                {heading}
-                            </Typography>
                             <Typography variant="h5" component="div">
                                 {title}
                             </Typography>
@@ -41,10 +49,10 @@ export default function DashElement({ heading, title, subtitle, text, buttonText
                             </Typography>
                         </Stack>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} alignItems="center">
 
-                        <Link to={link} style={{ 'textDecoration': 'none' }}>
-                            <Button variant="contained" size="small">
+                        <Link to={link} style={{ 'textDecoration': 'none', width: '100%' }}>
+                            <Button variant="contained">
                                 <Typography >
                                     {buttonText}
                                 </Typography>

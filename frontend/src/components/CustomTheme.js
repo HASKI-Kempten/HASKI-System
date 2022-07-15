@@ -122,6 +122,9 @@ export const Theme = createTheme({
                         transform: 'translateY(4px) translateZ(0)',
                         boxShadow: 'unset'
                     }
+                },
+                text: {
+                    minWidth: 'unset',
                 }
             },
         },

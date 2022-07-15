@@ -17,7 +17,8 @@ import ThemePresentation from "./components/ThemePresentation";
 function App() {
 	return (
 		<>
-			<meta name="viewport" content="initial-scale=1, width=device-width, height=device-height" />
+			<meta property="og:title" content="__OG_TITLE__" />
+			<meta property="og:description" content="__OG_DESCRIPTION__" />
 			<ThemeProvider theme={Theme}>
 				<Router>
 					<Routes>

@@ -79,7 +79,7 @@ function OverviewNode(props) {
 
     const handleTransform = useCallback(
         () => {
-            setViewport({ x: 150, y: -1000, zoom: 1.2 }, { duration: 800 });
+            setViewport({ x: 700, y: -1200, zoom: 1.2 }, { duration: 800 });
         },
         [setViewport]
     );

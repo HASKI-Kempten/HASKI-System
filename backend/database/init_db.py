@@ -10,35 +10,35 @@ cur = connection.cursor()
 
 # Initialize Elements 
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 Kurzuberblick', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', '- Definition von Metrik -Unterschiedliche Verwendungszwecke von Metriken -Verschiedene Arten von Metriken und Einordnung von einigen Metriken ')
+            ('Metriken Teil 1 Kurzüberblick', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', '- Definition von Metrik\n - Unterschiedliche Verwendungszwecke von Metriken\n - Verschiedene Arten von Metriken und Einordnung von einigen Metriken ')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Metriken Teil 1 Beispiel & Lektion', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'url', 'Lorem Ipsum', 'Lorem Ipsum 2','https://www.youtube.com/embed/kXUAFFOTt-k')
             )              
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 uebung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'wortsuche.png')
+            ('Metriken Teil 1 Übung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'wortsuche.png')
             )   
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Metriken Teil 1 Zusatzliteratur', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','Inhalt zusatzliteratur')
             )     
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 Selbsteinschaetzungstest', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Ziehen.png')
+            ('Metriken Teil 1 Selbsteinschätzungstest', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Picture', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Ziehen.png')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 Zusammenfassung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Eine Metrik wird folgendermassen definiert Eine Metrik ist im Software Engineering eine quantifizierte Aussage ueber ein Artefakt, einen Prozess oder ein Projekt. Dabei bedeutet quantifizierte Aussage, dass eine Information in Zahlenform vorliegt und so verglichen werden kann.\n'+
+            ('Metriken Teil 1 Zusammenfassung', '0', 1656330943, 'Informatik I', 20, 3, 'visual, interactive, coding', 'Text', 'Lorem Ipsum', 'Lorem Ipsum 2', 'Eine Metrik wird folgendermaßen definiert Eine Metrik ist im Software Engineering eine quantifizierte Aussage über ein Artefakt, einen Prozess oder ein Projekt. Dabei bedeutet quantifizierte Aussage, dass eine Information in Zahlenform vorliegt und so verglichen werden kann.\n'+
             'Eine Metrik hilft dabei: \n'+
             '- Probleme zu identifizieren\n'+
             '- Neue Methoden zu testen\n'+
-            '- Produkte zu beurteilen-\n'+
-            '- Auftraggeber zu informieren (Transparenz)-\n'+
-            '- Komplexitaet, Qualitaet und Einhaltung des Standards zu kontrollieren-\n'+
-            '- Abschaetzung des Aufwands, der Kosten und der Zeit-\n'+            
+            '- Produkte zu beurteilen\n'+
+            '- Auftraggeber zu informieren (Transparenz)\n'+
+            '- Komplexität, Qualität und Einhaltung des Standards zu kontrollieren\n'+
+            '- Abschätzung des Aufwands, der Kosten und der Zeit\n'+            
             '- Verfolgung des Aufwands, der Kosten und der Zeit\n'+ 
-            'Metriken koennen in folgende Arten eingeteilt werden: Produkt-, Prozess-, und Projektmasse. Diese Masse werden durch verschiedene Methoden gemessen.'
+            'Metriken können in folgende Arten eingeteilt werden: Produkt-, Prozess-, und Projektmaße. Diese Maße werden durch verschiedene Methoden gemessen.'
              )
             )       
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Metriken Teil 1 uebung', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
+            ('Metriken Teil 1 Übung', '0', 1656330943, 'Informatik I', 15, 3, 'visual, auditory, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )   
 #### mock other
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -72,7 +72,7 @@ cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averag
             ('Schiebespiel Metriken zuordnen', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactiv', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            ('Tueroeffner Bestimmte Metriken', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
+            ('Türöffner Bestimmte Metriken', '0', 1656330943, 'Informatik I', 20, 3, 'visual, image, interactive', 'h5p', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')
             )
 cur.execute("INSERT INTO element (name, difficulty, creationDate, module, averageDuration, semester, style, type, proLIST, contraLIST,content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             ('Haltstead Metrik C++', '0', 1656330943, 'Informatik I', 8, 3, 'visual, coding', 'quiz', 'Lorem Ipsum', 'Lorem Ipsum 2','content successful')            
@@ -87,13 +87,13 @@ cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
             ('Metrikne I', 'IT-1234', 1)
             )
 cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
-            ('Einfuehrung in die Programmierung', 'IT-1478', 2)
+            ('Einführung in die Programmierung', 'IT-1478', 2)
             )
 cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
             ('Redekunst', 'AS-1478', 6)
             )
 cur.execute("INSERT INTO module (name, module, semester) VALUES (?, ?, ?)",
-            ('Professionelles Kruemmeln', 'EW-3570', 5)
+            ('Professionelles Krümmeln', 'EW-3570', 5)
             )
 
 #Initialize Students

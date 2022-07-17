@@ -52,9 +52,6 @@ const Home = () => {
                 <Box sx={{ padding: '1rem' }}>
                   <CustomBarChart />
                 </Box>
-                <Typography variant="h6" gutterBottom component="div">
-                  Dein Ergebnis des ILS Fragebogens:
-                </Typography>
               </Box>
             </Card>
             <Card sx={{ height: '100%', width: '100%', marginTop: '2rem' }}>
